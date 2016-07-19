@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2016-07-20T03:11:21 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Employee" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fb26dd13-4f97-4d51-9274-8fb8382b4ceb">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<subDataset name="EmployeeDataSet" uuid="6ab4299a-b56b-405c-b7de-d7e032f2a12c">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+	</subDataset>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="firstName" class="java.lang.String">
+		<fieldDescription><![CDATA[firstName]]></fieldDescription>
+	</field>
+	<field name="lastName" class="java.lang.String">
+		<fieldDescription><![CDATA[lastName]]></fieldDescription>
+	</field>
+	<field name="hireDate" class="java.util.Date">
+		<fieldDescription><![CDATA[hireDate]]></fieldDescription>
+	</field>
+	<field name="gender" class="java.lang.String">
+		<fieldDescription><![CDATA[gender]]></fieldDescription>
+	</field>
+	<field name="empNo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[empNo]]></fieldDescription>
+	</field>
+	<field name="birthDate" class="java.util.Date">
+		<fieldDescription><![CDATA[birthDate]]></fieldDescription>
+	</field>
+	<field name="department" class="java.lang.String"/>
+	<field name="salaryList" class="java.util.List"/>
+	<group name="GENDER">
+		<groupExpression><![CDATA[$F{firstName}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="31" forecolor="#FFFFFF" backcolor="#64B6F5" uuid="93781cc2-54b9-4040-b28b-2fb867f6a1d3">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="23" isBold="true"/>
+				</textElement>
+				<text><![CDATA[List of Employee]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="7" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="1" width="60" height="20" uuid="edc3a578-5d4c-493c-95cd-6883d2ee1d5f"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Emp No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="60" y="1" width="80" height="20" uuid="a8aa7a8a-c1b6-48a1-ba30-eef3533caad6">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[First Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="1" width="80" height="20" uuid="89e9e437-58ae-4aa5-a06b-20bb4e191b80"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Last Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="220" y="0" width="51" height="20" uuid="7678d199-e4a7-4c4b-8b39-dfcea9ec6268"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gender]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="371" y="0" width="92" height="20" uuid="9607696a-52fb-43f4-b4aa-4fadf6c3cb4d"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Birth Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="464" y="-1" width="92" height="21" uuid="22d30729-c522-4fe0-b355-c9d0fef4719e"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hire Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="271" y="0" width="99" height="19" uuid="7da2f699-830f-49c6-aa3c-b03df3620828"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Department]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="72" splitType="Stretch">
+			<textField>
+				<reportElement x="60" y="0" width="80" height="20" uuid="527ce925-1abe-4158-a524-7e4045bbafce"/>
+				<textFieldExpression><![CDATA[$F{firstName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="0" width="80" height="20" uuid="982865f1-f93b-4992-ac98-39a7680e9d35"/>
+				<textFieldExpression><![CDATA[$F{lastName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="464" y="0" width="92" height="20" uuid="77eedb14-2bac-4d05-a324-c6a892426c25">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{hireDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="1" width="51" height="19" uuid="61aa637c-30f6-488d-9203-f7ab347be24b"/>
+				<textFieldExpression><![CDATA[$F{gender}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="1" width="60" height="20" uuid="36db96be-1381-449f-9549-de451a092888"/>
+				<textFieldExpression><![CDATA[$F{empNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="371" y="0" width="92" height="20" uuid="8995533b-b3ba-4129-965a-3e574ee8f577"/>
+				<textFieldExpression><![CDATA[$F{birthDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="271" y="0" width="100" height="20" uuid="6ebb0f36-53fc-4e6a-8b10-0c82ca6b621d"/>
+				<textFieldExpression><![CDATA[$F{department}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="280" y="21" width="275" height="49" uuid="0ba8ea2b-1b64-49dc-950c-23a3896c82bb"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{salaryList})]]></dataSourceExpression>
+				<subreportExpression><![CDATA["salary.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<summary>
+		<band height="29" splitType="Stretch"/>
+	</summary>
+</jasperReport>

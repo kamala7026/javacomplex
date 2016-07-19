@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="jasper-spring">
+		<class>com.jasper.model.Department</class>
+		<class>com.jasper.model.DeptEmp</class>
+		<class>com.jasper.model.DeptEmpPK</class>
+		<class>com.jasper.model.DeptManager</class>
+		<class>com.jasper.model.DeptManagerPK</class>
+		<class>com.jasper.model.Employee</class>
+		<class>com.jasper.model.Salary</class>
+		<class>com.jasper.model.SalaryPK</class>
+		<class>com.jasper.model.Title</class>
+		<class>com.jasper.model.TitlePK</class>
+	</persistence-unit>
+</persistence>
