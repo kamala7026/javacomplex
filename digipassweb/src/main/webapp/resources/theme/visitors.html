@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>userDetails</title>
+		<meta name="description" content="">
+		<meta name="author" content="Adeptpros">
+		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+		
+		<!-- Cascading Style Sheets -->
+		<link href="css/master.css" rel="stylesheet" />
+		<link href="css/dashboard.css" rel="stylesheet"/>
+		<link href="css/style.css" rel="stylesheet"/>
+		<link href="http://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css" type="text/css" rel="stylesheet"/>
+		
+		<!-- Javascript files -->
+		<script type="text/javascript" src="js/jquery-1.11.3.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="http://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+		
+
+	</head>
+
+	<body>
+		
+			<header>
+				<div class="container">
+					<div class="logo-div pull-left">
+						<img src="img/digipass_logo.png" alt="DigipassLOGO"/>
+					</div>
+					<div class="avtarImg pull-right">
+						<div class="user-name pull-left">
+							<span>Welcome,</span><br />
+							<span class="name">Mr Dendayal</span>
+						</div>
+						<div class="avtar-img pull-right">
+							<img src="img/profile_img.png" />
+						</div>
+					</div>
+				</div>
+			</header>
+			
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="top-header">
+							<nav class="nav-container">
+								<ul class="menu">
+									<li><a class="greyTxtColor nav-padding" href="dashboard.html">Dashboard</a></li>
+									<li><a class="greyTxtColor nav-padding" href="host.html">Host</a></li>
+									<li><a class="whiteTxtColor nav-padding actvbgk" href="visitors.html">Visitors</a></li>
+									<li><a class="greyTxtColor nav-padding" href="passhistory.html">Passes</a></li>
+									<li><a class="greyTxtColor nav-padding" href="accounts.html">Accounts</a></li>						
+								</ul>
+							</nav>
+							<div class="heading-text pull-left">
+								<h3 style="margin:0">Visitors</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+				<section id="usrPassMng" class="m-b m-t">
+					
+					<div class="upmTable">
+						<div class="table-responsive">
+							<table id="userPass" class="table table-striped-custom-bg table-striped">
+								<thead class="thead-bg whiteTxtColor">
+           							<tr role="row">
+               							<th style="">First Name</th>
+               							<th style="">Last Name</th>               							
+               							<th style="">Phone No</th>
+               							<th style="">Email</th>
+               							<th style="">Company Name</th>
+               							<th>Vehicle Details</th>
+               							<th>Host Details</th>
+               							
+           							</tr>
+         						</thead>
+         						<tbody>
+         							
+         							<tr class="odd" role="row">
+                                        <td><span>Anand</span></td>
+                                        <td><span>Sharma</span></td>
+                                        <td>
+                                        	<span><i class="fa fa-phone"></i> 9876543210</span><br />
+                                        	<span><i class="fa fa-phone"></i> 0123456789</span>
+                                        </td>
+                                        <td>
+                                        	<span>example@adeptpros.com</span><br />
+                                        	<span>example@geniusport.com</span>
+                                        </td>
+                                        <td>Adeptpros Inc</td>
+                                        <td>Maruti 800</td>
+                                        <td>Kamalakant</td>                                                                                	                                                                     
+     								</tr>
+     								
+     								<tr class="odd" role="row">
+                                        <td><span>Anand</span></td>
+                                        <td><span>Sharma</span></td>
+                                        <td>
+                                        	<span><i class="fa fa-phone"></i> 9876543210</span><br />
+                                        	<span><i class="fa fa-phone"></i> 0123456789</span>
+                                        </td>
+                                        <td>
+                                        	<span>example@adeptpros.com</span><br />
+                                        	<span>example@geniusport.com</span>
+                                        </td>
+                                        <td>Adeptpros Inc</td>
+                                        <td>Maruti 800</td>
+                                        <td>Kamalakant</td>                                                                                	                                                                     
+     								</tr>
+         							<tr class="odd" role="row">
+                                        <td><span>Anand</span></td>
+                                        <td><span>Sharma</span></td>
+                                        <td>
+                                        	<span><i class="fa fa-phone"></i> 9876543210</span><br />
+                                        	<span><i class="fa fa-phone"></i> 0123456789</span>
+                                        </td>
+                                        <td>
+                                        	<span>example@adeptpros.com</span><br />
+                                        	<span>example@geniusport.com</span>
+                                        </td>
+                                        <td>Adeptpros Inc</td>
+                                        <td>Maruti 800</td>
+                                        <td>Kamalakant</td>                                                                                	                                                                     
+     								</tr>
+     								<tr class="odd" role="row">
+                                        <td><span>Anand</span></td>
+                                        <td><span>Sharma</span></td>
+                                        <td>
+                                        	<span><i class="fa fa-phone"></i> 9876543210</span><br />
+                                        	<span><i class="fa fa-phone"></i> 0123456789</span>
+                                        </td>
+                                        <td>
+                                        	<span>example@adeptpros.com</span><br />
+                                        	<span>example@geniusport.com</span>
+                                        </td>
+                                        <td>Adeptpros Inc</td>
+                                        <td>Maruti 800</td>
+                                        <td>Kamalakant</td>                                                                                	                                                                     
+     								</tr>
+     								<tr class="odd" role="row">
+                                        <td><span>Anand</span></td>
+                                        <td><span>Sharma</span></td>
+                                        <td>
+                                        	<span><i class="fa fa-phone"></i> 9876543210</span><br />
+                                        	<span><i class="fa fa-phone"></i> 0123456789</span>
+                                        </td>
+                                        <td>
+                                        	<span>example@adeptpros.com</span><br />
+                                        	<span>example@geniusport.com</span>
+                                        </td>
+                                        <td>Adeptpros Inc</td>
+                                        <td>Maruti 800</td>
+                                        <td>Kamalakant</td>                                                                                	                                                                     
+     								</tr>
+     								<tr class="odd" role="row">
+                                        <td><span>Anand</span></td>
+                                        <td><span>Sharma</span></td>
+                                        <td>
+                                        	<span><i class="fa fa-phone"></i> 9876543210</span><br />
+                                        	<span><i class="fa fa-phone"></i> 0123456789</span>
+                                        </td>
+                                        <td>
+                                        	<span>example@adeptpros.com</span><br />
+                                        	<span>example@geniusport.com</span>
+                                        </td>
+                                        <td>Adeptpros Inc</td>
+                                        <td>Maruti 800</td>
+                                        <td>Kamalakant</td>                                                                                	                                                                     
+     								</tr>
+     								<tr class="odd" role="row">
+                                        <td><span>Anand</span></td>
+                                        <td><span>Sharma</span></td>
+                                        <td>
+                                        	<span><i class="fa fa-phone"></i> 9876543210</span><br />
+                                        	<span><i class="fa fa-phone"></i> 0123456789</span>
+                                        </td>
+                                        <td>
+                                        	<span>example@adeptpros.com</span><br />
+                                        	<span>example@geniusport.com</span>
+                                        </td>
+                                        <td>Adeptpros Inc</td>
+                                        <td>Maruti 800</td>
+                                        <td>Kamalakant</td>                                                                                	                                                                     
+     								</tr>
+     								<tr class="odd" role="row">
+                                        <td><span>Anand</span></td>
+                                        <td><span>Sharma</span></td>
+                                        <td>
+                                        	<span><i class="fa fa-phone"></i> 9876543210</span><br />
+                                        	<span><i class="fa fa-phone"></i> 0123456789</span>
+                                        </td>
+                                        <td>
+                                        	<span>example@adeptpros.com</span><br />
+                                        	<span>example@geniusport.com</span>
+                                        </td>
+                                        <td>Adeptpros Inc</td>
+                                        <td>Maruti 800</td>
+                                        <td>Kamalakant</td>                                                                                	                                                                     
+     								</tr>
+     								<tr class="odd" role="row">
+                                        <td><span>Anand</span></td>
+                                        <td><span>Sharma</span></td>
+                                        <td>
+                                        	<span><i class="fa fa-phone"></i> 9876543210</span><br />
+                                        	<span><i class="fa fa-phone"></i> 0123456789</span>
+                                        </td>
+                                        <td>
+                                        	<span>example@adeptpros.com</span><br />
+                                        	<span>example@geniusport.com</span>
+                                        </td>
+                                        <td>Adeptpros Inc</td>
+                                        <td>Maruti 800</td>
+                                        <td>Kamalakant</td>                                                                                	                                                                     
+     								</tr>
+     								<tr class="odd" role="row">
+                                        <td><span>Anand</span></td>
+                                        <td><span>Sharma</span></td>
+                                        <td>
+                                        	<span><i class="fa fa-phone"></i> 9876543210</span><br />
+                                        	<span><i class="fa fa-phone"></i> 0123456789</span>
+                                        </td>
+                                        <td>
+                                        	<span>example@adeptpros.com</span><br />
+                                        	<span>example@geniusport.com</span>
+                                        </td>
+                                        <td>Adeptpros Inc</td>
+                                        <td>Maruti 800</td>
+                                        <td>Kamalakant</td>                                                                                	                                                                     
+     								</tr>
+     								<tr class="odd" role="row">
+                                        <td><span>Anand</span></td>
+                                        <td><span>Sharma</span></td>
+                                        <td>
+                                        	<span><i class="fa fa-phone"></i> 9876543210</span><br />
+                                        	<span><i class="fa fa-phone"></i> 0123456789</span>
+                                        </td>
+                                        <td>
+                                        	<span>example@adeptpros.com</span><br />
+                                        	<span>example@geniusport.com</span>
+                                        </td>
+                                        <td>Adeptpros Inc</td>
+                                        <td>Maruti 800</td>
+                                        <td>Kamalakant</td>                                                                                	                                                                     
+     								</tr>
+         						</tbody>
+							</table>
+						</div>
+					</div>
+				</section>
+			</div>
+
+			<!-- add user popup modal (21/1/16) -->
+	
+			<div class="modal fade" id="addUser" tabindex="-1" role="dialog" 
+			     aria-labelledby="myModalLabel" aria-hidden="true">
+			    <div class="modal-dialog custom-modal-dialog">
+			    	
+			    	<form class="form-horizontal" id="newuser" method="post">
+			        <div class="modal-content">
+			            <!-- Modal Header -->
+			            <div class="modal-header">
+			                <button type="button" class="close" 
+			                   data-dismiss="modal">
+			                       <span aria-hidden="true">&times;</span>
+			                       <span class="sr-only">Close</span>
+			                </button>
+			                <h4 class="modal-title" id="myModalLabel">
+			                    New Resident / Host
+			                </h4>
+			            </div>
+			            
+			            <!-- Modal Body -->
+			            <div class="modal-body wfx">
+			            	<div class="content-outer">
+				            	
+				            		<div class="form-fields">
+				            			<div class="form-group marg-btm-ten no-margin col-lg-6 col-md-6 col-sm-6 col-xs-12">
+											<div class="label-div col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										    	<label class="control-label" for="firstName">First Name</label>
+										    </div>
+										    <div class="text-div col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										    	<input type="text" class="form-control cust-form-control" id="firstName">
+										    </div>
+										</div>
+										<div class="form-group marg-btm-ten no-margin col-lg-6 col-md-6 col-sm-6 col-xs-12">
+											<div class="label-div col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										    	<label class="control-label" for="lastname">Last Name</label>
+										    </div>
+										    <div class="text-div col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										    	<input type="text" class="form-control cust-form-control" id="lastname">
+										    </div>
+										</div>
+										<div class="form-group marg-btm-ten no-margin col-lg-6 col-md-6 col-sm-6 col-xs-12">
+											<div class="label-div col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										    	<label class="control-label" for="type">Type</label>
+										    </div>
+										    <div class="text-div col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										    	<input type="text" class="form-control cust-form-control" id="type">
+										    </div>
+										</div>
+										<div class="form-group marg-btm-ten no-margin col-lg-6 col-md-6 col-sm-6 col-xs-12">
+											<div class="label-div col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										    	<label class="control-label" for="uniqueid">#ID</label>
+										    </div>
+										    <div class="text-div col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										    	<input type="text" class="form-control cust-form-control" id="uniqueid">
+										    </div>
+										</div>
+										<div class="form-group marg-btm-ten no-margin col-lg-12 col-md-12 col-sm-6 col-xs-12">
+											<div class="label-div col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										    	<label class="control-label" for="email1">E-mail 1</label>
+										    </div>
+										    <div class="text-div col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										    	<input type="email" class="form-control cust-form-control" id="email1">
+										    </div>
+										</div>
+										<div class="form-group marg-btm-ten no-margin col-lg-12 col-md-12 col-sm-6 col-xs-12">
+											<div class="label-div col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										    	<label class="control-label" for="email2">E-mail 2</label>
+										    </div>
+										    <div class="text-div col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										    	<input type="email" class="form-control cust-form-control" id="email2" placeholder="Optional">
+										    </div>
+										</div>
+										<div class="form-group marg-btm-ten no-margin col-lg-6 col-md-6 col-sm-6 col-xs-12">
+											<div class="label-div col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										    	<label class="control-label" for="phone">Phone (mobile):</label>
+										    </div>
+										    <div class="text-div col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										    	<input type="text" class="form-control cust-form-control" id="phone">
+										    </div>
+										</div>
+										<div class="form-group marg-btm-ten no-margin col-lg-6 col-md-6 col-sm-6 col-xs-12">
+											<div class="label-div col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										    	<label class="control-label" for="alternatenumber">Alternate Number (home):</label>
+										    </div>
+										    <div class="text-div col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										    	<input type="text" class="form-control cust-form-control" id="alternatenumber">
+										    </div>
+										</div>
+										<div class="form-group marg-btm-ten no-margin col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											<div class="label-div col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										    	<label class="control-label" for="address1">Address</label>
+										    </div>
+										    <div class="text-div col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										    	<input type="text" class="form-control marg-btm-ten cust-form-control" id="address1line1"
+										    	placeholder="Flat/house No, Floor, Building">
+										    	<input type="text" class="form-control marg-btm-ten cust-form-control" id="address1line2" placeholder="Colony/Society, Street, Locality/area">
+										    	<input type="text" class="form-control marg-btm-ten cust-form-control" id="address1town" placeholder="Town/city">
+										    	<div class="row">
+											    	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+											    		<input type="text" class="form-control marg-btm-ten cust-form-control" id="address1state" placeholder="State">
+											    	</div>
+											    	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+											    		<input type="text" class="form-control marg-btm-ten cust-form-control" id="address1pin" placeholder="Pin">
+											    	</div>
+										    	</div>
+										    </div>
+										</div>
+										<!-- <div class="form-group marg-btm-ten no-margin col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											<div class="label-div col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										    	<label class="control-label" for="address2">Address 2</label>
+										    </div>
+										    <div class="text-div col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										    	<input type="text" class="form-control marg-btm-ten cust-form-control" id="address2line1" placeholder="Flat/house No, Floor, Building">
+										    	<input type="text" class="form-control marg-btm-ten cust-form-control" id="address2line2" placeholder="Colony/Society, Street, Locality/area">
+										    	<input type="text" class="form-control marg-btm-ten cust-form-control" id="address2town" placeholder="Town/city">
+										    	<div class="row">
+											    	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+											    		<input type="text" class="form-control marg-btm-ten cust-form-control" id="address2state" placeholder="State">
+											    	</div>
+											    	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+											    		<input type="text" class="form-control marg-btm-ten cust-form-control" id="address2pin" placeholder="Pin">
+											    	</div>
+										    	</div>
+										    </div>
+										</div> -->
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											<div class="form-group marg-btm-ten no-margin col-lg-6 col-md-6 col-sm-6 col-xs-12">
+												<div class="row">
+													<div class="label-div col-lg-12 col-md-12 col-sm-12 col-xs-12">
+												    	<label class="control-label" for="expirydate">Expiry Date</label>
+												    </div>
+												    <div class="text-div col-lg-12 col-md-12 col-sm-12 col-xs-12">
+												    	<input type="email" class="form-control cust-form-control" id="expirydate">
+												    </div>
+												</div>
+											</div>
+											<div class="form-group marg-btm-ten no-margin col-lg-6 col-md-6 col-sm-6 col-xs-12">
+												<div class="row">
+													<div class="label-div col-lg-12 col-md-12 col-sm-12 col-xs-12">
+												    	<label class="control-label" for="expirytime">Expiry Time</label>
+												    </div>
+												    <div class="text-div col-lg-12 col-md-12 col-sm-12 col-xs-12">
+												    	<input type="email" class="form-control cust-form-control" id="expirytime">
+												    </div>
+												</div>
+											</div>
+											
+										</div>
+				            		</div>
+				            	
+				            </div>
+			            </div>
+			                
+			               
+			                  			            
+			            <!-- Modal Footer -->
+			            <div class="modal-footer">
+			                <button type="button" class="btn btn-default"
+			                        data-dismiss="modal">
+			                            Close
+			                </button>
+			                <button type="submit" class="btn btn-primary">
+			                    Save changes
+			                </button>
+			            </div>
+			        </div>
+			        </form>
+			    </div>
+			</div>	
+
+        
+			<script type="text/javascript">
+        	$(document).ready(function() {
+			    $('#userPass').DataTable( {
+        		
+    			} );
+			    $('#adduser_btn').click(function(){
+			    $('#addUser').modal('show');
+			    });
+     
+		} );
+        	 var texts = $("td").map(function() {
+                 if($(this).text()=="Active"){
+                         var green = $(this).addClass( "user-active" );                                         
+                         return $(this).text();
+                 }else{
+                         var green = $(this).removeClass( "user-active" );
+                 }
+                 if($(this).text()=="In Active"){
+                         var red = $(this).addClass( "user-inactive" );                                         
+                         return $(this).text();
+                 }else{
+                         $(this).removeClass("user-inactive");
+                 }
+           // return $(this).text();
+        });
+        </script>
+		
+	</body>
+</html>

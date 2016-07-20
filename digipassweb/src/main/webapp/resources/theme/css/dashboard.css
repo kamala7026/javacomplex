@@ -1,0 +1,189 @@
+/*Common Css*/
+
+body {
+    background: #FFFFFF none repeat scroll 0 0;
+    color: #333333;
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    margin-bottom:100px;
+}
+header {
+    background:#666666;
+    height: 77px;
+    width: 100%;
+}
+.greyTxtColor {
+	color:#3b3b3b;
+}
+.whiteTxtColor{
+	color:#FFFFFF;
+}
+.orangeTxtColor {
+	color:#ffb41c;
+}
+.greenTxtColor {
+	color:#2CC990;
+}
+.blueTxtColor {
+	color:#0791C8;
+}
+.wfx {
+	float:left;
+	width:100%;
+}
+.h-style {
+	margin-top:0;
+}
+.user-name {
+	padding-top:5px;
+	color:#fff;
+}
+.avtar-img.pull-right {
+  /*padding: 6px 5px 0 10px;*/
+  margin-left:10px;
+}
+.m-b {
+	margin-bottom:15px;
+}
+.m-t {
+	margin-top:15px;
+}
+/*custom Css*/
+
+.nav-container {
+    float: right;
+}
+ul.menu {
+    float: left;
+    margin: 0;
+    
+}
+ul.menu > li {
+    display: block;
+    float: left;
+    margin-left: 18px;
+}
+ul.menu li > a {
+    float: left;
+    font-size: 15px;
+    line-height: 100%;
+    position: relative;
+    /*text-transform: uppercase;*/
+}
+.nav-padding {
+	padding: 10px 8px;
+}
+.actvbgk {
+    background-color: #ffb41c;
+    border-radius: 14px;
+    font-weight:600;    
+}
+.pricing-item {
+	background-color:#F7F7F7;
+	width:200px;
+	padding:15px 0;
+}
+.prising-list li {
+	display: block;
+}
+.pricing-item_title {
+    font-size: 24px;
+    font-weight: 500;
+}
+.pricing-amount {
+    
+    font-size: 60px;
+}
+.greeting {
+    background-color: #ffb41c;
+    height: 38px;
+    margin-top: 10px;
+}
+.greeting-text {
+   
+    font-size: 24px;
+    font-weight: bold;
+   
+}
+
+
+
+
+.thead-bg {
+    background-color: #4d4d4d;
+}
+.profile-map {
+	padding:15px 0;
+}
+.titleText {
+	font-size:16px;
+}
+.margin-0  tr  td{
+	 border-top: 0 solid!important;
+}
+.margin-0 > tr > th{
+	 border-bottom: 0 solid!important;
+}
+.points{
+	margin-left:-8px;
+}
+
+.digipass_btn:hover, .digipass_btn:active {
+       color:#ffffff;
+}
+/*.custom-modal-dialog {
+       width:60%!important;
+}*/
+.user-active{
+	   font-size: 14px;
+	   font-weight:bold;
+       color:green;
+}
+
+.user-inactive{
+	font-size: 14px;
+	font-weight:bold;
+       color:red;
+}
+.user-added{
+	font-weight:bold;
+	font-size: 14px;
+	color:#ffb41c;
+}
+.user-invited{
+	font-size: 14px;
+	font-weight:bold;
+	color:#0FA3EC;
+}
+
+
+.from, .to {
+    display: inline;
+    margin-right: 6px;
+}
+
+input.cmn-date-file[type="text"] {
+    /*background: rgba(0, 0, 0, 0) url("../img/commonImg/calendericon.png") no-repeat scroll right center;  */  
+}
+.cmn-date-file {
+    
+    width: 116px;
+}
+.date-picker {
+	/*margin-left:10px;*/
+	float:left;
+}
+.upmTable{
+	float:left;
+	width:100%;
+}
+.ui-widget-header {
+	background-color:#4d4d4d;
+	border-color:#4d4d4d;
+}
+.green{
+	color:green;
+	
+}
+.red{
+	color:red;
+}

@@ -1,0 +1,77 @@
+/*//////////////////////////////////////////////////////////////////////////////////////////*/
+/* CUSTOM CSS (ADD YOUR CSS HERE!) */
+/*//////////////////////////////////////////////////////////////////////////////////////////*/
+
+.top-strap{
+	height:18px;
+	width:100%;
+	background-color:#666666;
+}
+.middle-section {
+    background: #fff none repeat scroll 0 0;
+    /*border: 1px solid #d7d7d7;
+    border-radius: 20px;*/
+    margin: 30px auto;
+    max-width: 100%;
+    padding: 30px;
+    z-index: 100;
+}
+.btn-gray {
+    background-color: #666666;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+}
+.terms {
+    font-size: 15px;
+    text-align: center;
+    
+}
+.videoWidth {
+	width:100%;
+	height:100%;
+	margin-top:40px;
+}
+.color-orange {
+	color:#FFB41C;
+}
+.color-gray{
+	color:#666666;
+}
+.bgk-img {
+	background:url("../img/login.png") no-repeat center center;
+   background-size: cover;
+   border: medium none;
+    box-shadow: none;
+    height:43px;
+}
+.bgk-img:focus{
+	border-color:none;
+	box-shadow:none;
+	
+}
+.checkbox {
+	padding:6px 12px;
+}
+.terms.color-gray {
+    margin: 20px 0 35px;
+    padding: 6px 12px;
+}
+.border-img {
+    margin-top: 30px;
+}
+.text_div > p {
+		    font-size: 16px;
+		}
+		.login-right-section {
+    margin: 0 auto;
+    max-width: 420px;
+    padding: 60px 0 0;
+    float:right;
+}
+.login-right-section .row {
+    margin: 0 0 40px;
+}
+.text_div {
+    margin-top: 16px;
+}

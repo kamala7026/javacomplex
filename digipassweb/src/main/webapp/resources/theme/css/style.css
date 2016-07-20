@@ -1,0 +1,232 @@
+body {
+
+}
+/*.container {
+    width: 1265px !important;
+}*/
+.no-margin {
+	margin-left:0!important;
+	margin-right:0!important;
+}
+.marg-btm-ten {
+	margin-bottom:5px;
+}
+/*  host modal styles */
+.content-outer {
+	height:auto;
+	float:left;
+	background-color:rgba(102, 102, 102, 0.10);
+	padding:10px;
+}
+@media (min-width: 768px) {
+  .modal-dialog {
+    width: 550px;
+  }
+  .mybtn_new{
+  	width:200px
+  }
+  .myBtn_new1 {
+  	margin-top:0px!important;
+  	margin-left:10px;
+  }
+ }
+.cust-form-control {
+	height:28px;
+}
+#newuser label {
+	font-weight:normal;
+}
+
+
+/* Host table */
+table.dataTable thead th, table.dataTable thead td {
+    border-bottom: 1px solid #111;
+    padding: 8px!important;
+}
+table.dataTable tbody th, table.dataTable tbody td {
+    padding: 8px 10px;
+    /*width: 20%;
+    word-break: break-all;*/
+    word-wrap: break-word;
+}
+
+
+
+/*grant access section*/
+/*.cmn-btn {
+    background-color: #e97b20;
+    border-color: #e97b20;
+    border-radius: 0;
+    border-width: 2px 1px;
+    color: #fff;
+    padding: 2px 0 !important;
+}*/
+.digipass_btn {
+   	background-color:#666666;
+   	color:#ffffff;
+   	padding:2px 10px;
+    margin-right:2px;
+    border-radius: 15px;
+}
+.top-header {
+	padding: 25px 0 0;
+}
+.add-user {
+	display:inline-block;
+}
+.checkshow {
+	display:none;
+}
+
+/* 2-oct-16 */
+ul.menu> li a:hover, ul.menu> li a:active, ul.menu> li a:focus {
+	text-decoration:none;
+	outline: none !important;
+
+}
+.whiteTxtColor:hover{
+		color:#fff;
+}
+.cmn-btn:hover, .cmn-btn:focus, .cmn-btn:active {
+	color:#ffffff;
+	outline:none!important;
+}
+label.css-label {
+    
+   background-image: url("../img/custom-checkbox.png");
+}
+
+/* 03-02-2016*/
+tr > td {
+   font-size: 12px;
+}
+.error{
+	color:red;
+	font-size:13px;
+}
+input.error:focus, input.error:active{
+	border-color:red;
+}
+
+/*04-feb-16*/
+.time, .mins, .meridian {
+   width: 40px!important;
+}
+.time>.next , .mins>.next, .meridian>.next{
+   background: rgba(0, 0, 0, 0) url("../img/arrow.png") no-repeat scroll 4px -35px !important;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   cursor: pointer;
+   margin: auto;
+   padding: 14px!important;
+   width: 27%;
+}
+.time>.prev , .mins>.prev, .meridian>.prev {
+   background: rgba(0, 0, 0, 0) url("../img/arrow.png") no-repeat scroll 4px 8px !important;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   cursor: pointer;
+   margin: auto;
+   padding: 14px!important;
+   width: 27%;
+}
+.timepicki-input {
+       font-size:15px;
+}
+.ui-widget-header .ui-icon {
+    background-image: url("../images/ui-icons_ffffff_256x240.png");
+}
+/*05-02-2016*/
+.searchbtn{
+	display:inline;
+}
+.cust-searchBtn{
+       margin-top: -5px;
+   padding: 2px 20px;
+}
+
+/* 12/02/2016 */
+.nav > li > a {
+       float:left;
+       padding-bottom:6px;
+       padding-top:6px;
+}
+.nav > li > a:hover , .nav > li > a:focus, .nav > li > a:active{
+       background-color:transparent;
+}
+.nav .open > a:hover, .nav .open > a:focus {
+        background-color:transparent;
+}
+.logo-div {
+    padding-top: 4px;
+}
+.dropdown-menu > li > a:hover, .dropdown-menu > li >a:focus{
+	background-color:#666666;
+	color:#ffffff;
+}
+
+/* 15 /02/2016 **/
+
+.divider-custom {
+       margin:0px!important;
+}
+#userPass_next{
+	width:auto!important;
+}
+.aside-xl {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 30px;
+    width: 360px;
+    background-color:#
+}
+.panel {
+    box-shadow: none;
+}
+.panel {
+    border-radius: 2px;
+}
+.inner-width > span {
+    display: block;
+    font-size: 50px;
+    text-align: center;
+}
+.digipass_btn1 {
+    background-color: #666666;
+    border-radius: 0;
+    color: #ffffff;
+    margin-right: 2px;
+    margin-top: -5px;
+    padding: 1px 23px 3px 18px;
+    border-radius: 15px;
+    border
+}
+.user_img {
+    display: block;
+    width: 100%;
+}
+.user_img > img {
+    border: 1px solid #94aaaa;
+    border-radius: 50%;
+    max-width: 70px;
+     width: 45px;
+    
+}
+.middle-block{
+	margin: 30px auto 0!important;
+}
+.text_div > p {
+		    font-size: 16px;
+		}
+		.login-right-section {
+    margin: 0 auto;
+    max-width: 420px;
+    padding: 60px 0 0;
+    float:right;
+}
+.login-right-section .row {
+    margin: 0 0 40px;
+}
+.text_div {
+    margin-top: 16px;
+}

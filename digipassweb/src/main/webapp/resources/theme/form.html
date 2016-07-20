@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+		<title>userDetails</title>
+		<meta name="description" content="">
+		<meta name="author" content="Adeptpros">
+		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+		
+		<!-- Cascading Style Sheets -->
+		<link href="css/master.css" rel="stylesheet" />
+		<link href="css/dashboard.css" rel="stylesheet"/>
+		<link href="css/style.css" rel="stylesheet"/>
+		<link href="http://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css" type="text/css" rel="stylesheet"/>
+		
+		<!-- Javascript files -->
+		<script type="text/javascript" src="js/jquery-1.11.3.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="http://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+		
+ <style>
+ label {
+   
+    font-weight: normal !important;
+   
+}
+ </style>
+	</head>
+
+	<body>
+		
+			<header>
+				<div class="container">
+					<div class="logo-div pull-left">
+						<img src="img/digipass_logo.png" alt="DigipassLOGO"/>
+					</div>
+					<div>    
+				  	  <ul class="nav navbar-nav navbar-right m-n nav-user user"><!-- hidden-xs -->
+				       <li class="dropdown">
+				          <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+				          	<div class="avtarImg pull-right">
+							<div class="user-name pull-left">
+								<span>Welcome,</span><br />
+								<span class="name">Mr Dendayal</span><br />
+								<span class="company-name">Adeptpros Inc.</span>
+							</div>
+							<div class="avtar-img pull-right">
+								<img src="img/profile_img.png" />
+							</div>
+						</div>
+				          </a>
+				          <ul class="dropdown-menu animated fadeInRight">
+				            <li><a href="changePass.html"><i class="fa fa-key"></i> Change Password</a></li>			             
+				            <li><a href="#"><i class="fa fa-sign-out"></i> Logout</a></li>
+				          </ul>
+				        </li>
+				      </ul>     
+	      			</div>
+				</div>
+			</header>
+			
+			<div class="container">
+				<div class="container aside-xl col-sm-12" style="width:100%;  padding-top: 20px;border-radius: 20px; border-top: 21px solid rgb(168, 168, 168);">
+							<div class="inner-width">
+								
+								<div class="row">
+									<div class="col-md-12">
+										<section class="panel">
+											<div class="panel-body">
+												<form id="changePassword" autocomplete="off"  method="post"  role="form" novalidate="novalidate">
+												   <div class="form-group clearfix row">
+														<div class="col-sm-6">
+														<h5 class="mar-tpno"> First Name</h5>
+														<div>
+														<input class="form-control" type="visit" name="firstname">
+														</div>
+														</div>
+														<div class="col-sm-6">
+														<h5 class="mar-tpno">Last Name</h5>
+														<div>
+														<input class="form-control" type="email" name="lastname">
+														</div>
+														</div>
+													</div>
+													 
+													  <div class="form-group">
+								                          <label >Company Name</label>
+								                          <input type="text" class="form-control" name="companyname" placeholder="">
+								                      </div>
+													  <div class="form-group clearfix row">
+														<div class="col-sm-6">
+														<h5 class="mar-tpno"> Email</h5>
+														<div>
+														<input class="form-control" type="text" name="email">
+														</div>
+														</div>
+														<div class="col-sm-6">
+														<h5 class="mar-tpno">Contact</h5>
+														<div>
+														<input class="form-control" type="email" name="contact">
+														</div>
+														</div>
+													</div>
+													<div class="form-group">
+								                          <label >Address</label>
+								                          <textarea type="text" class="form-control" name="address" placeholder=""></textarea>
+								                      </div>
+													    <div class="form-group clearfix row">
+														<div class="col-sm-6">
+														<h5 class="mar-tpno"> Start Time</h5>
+														<div>
+														<input class="form-control" type="text" name="starttime">
+														</div>
+														</div>
+														<div class="col-sm-6">
+														<h5 class="mar-tpno">End Time</h5>
+														<div>
+														<input class="form-control" type="email" name="endtime">
+														</div>
+														</div>
+													</div>
+													<div class="form-group">
+								                          <label >Visiting Purpose</label>
+								                         <input class="form-control" type="visit" name="visit">
+								                      </div>
+													  	<div class="form-group">
+								                          <label >Vehicle Information</label>
+								                         <input class="form-control" type="visit" name="vehicle">
+								                      </div>
+													   <div class="form-group clearfix row">
+														<div class="col-sm-6">
+														<h5 class="mar-tpno"> Equipment Details</h5>
+														<div>
+														<input class="form-control" type="visit" name="equipment">
+														</div>
+														</div>
+														<div class="col-sm-6">
+														<h5 class="mar-tpno">Venue</h5>
+														<div>
+														<input class="form-control" type="email" name="venue">
+														</div>
+														</div>
+													</div>
+													<div class="form-group">
+								                          <label >Notes / Instruction</label>
+								                          <textarea type="text" class="form-control" name="address" placeholder=""></textarea>
+								                      </div>
+													  <div class="form-group">
+													  <button name="submitbtn" class="btn btn-primary btn-block pull-left" style="width:200px;" type="Save">Save</button>
+													   <button name="submitbtn" class="btn btn-primary btn-block pull-left" style="width: 200px; margin-top: 0px; margin-left: 20px;" type="Cancel">Cancel</button>
+												</div>
+												</form>
+											</div>
+										</section>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+					
+				
+			</div>
+
+		
+	</body>
+</html>
