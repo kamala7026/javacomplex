@@ -37,7 +37,8 @@ public class ReportController {
 		JRBeanCollectionDataSource dataSource=new JRBeanCollectionDataSource(employeeList);
 		try {
 			JasperReport jasperReport=ReportUtil.getCompiledFile("Employee", request);
-			ReportUtil.generateReportPDF(response,new HashMap<>(), jasperReport, dataSource);
+			String report=request.getSession().getServletContext().getRealPath("/report/Employee.jasper");
+			ReportUtil.generateReportPDF(response,new HashMap<>(), report, dataSource);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

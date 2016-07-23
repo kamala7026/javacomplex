@@ -36,9 +36,9 @@ public class ReportUtil {
 	    
 	}
 	
-	public static void generateReportPDF (HttpServletResponse resp, Map parameters, JasperReport jasperReport, JRBeanCollectionDataSource dataSource)throws JRException, NamingException, IOException {
+	public static void generateReportPDF (HttpServletResponse resp, Map parameters, String report, JRBeanCollectionDataSource dataSource)throws JRException, NamingException, IOException {
         byte[] bytes = null;
-        bytes = JasperRunManager.runReportToPdf(jasperReport,parameters,dataSource);
+        bytes = JasperRunManager.runReportToPdf(report,parameters,dataSource);
         resp.reset();
         resp.resetBuffer();
         resp.setContentType("application/pdf");

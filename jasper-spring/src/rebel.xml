@@ -2,13 +2,13 @@
 <application generated-by="eclipse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.zeroturnaround.com" xsi:schemaLocation="http://www.zeroturnaround.com http://update.zeroturnaround.com/jrebel/rebel-2_1.xsd">
 
 	<classpath>
-		<dir name="${rebel.workspace.path}/jasper-spring/build/classes">
+		<dir name="C:/Users/kamala/git/jasper-spring/build/classes">
 		</dir>
 	</classpath>
 
 	<web>
 		<link target="/">
-			<dir name="${rebel.workspace.path}/jasper-spring/WebContent">
+			<dir name="C:/Users/kamala/git/jasper-spring/WebContent">
 			</dir>
 		</link>
 	</web>
