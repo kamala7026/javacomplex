@@ -184,12 +184,12 @@
                  <!-- user login dropdown start-->
                     <li class="dropdown text-center" style="float: right;">
                             <span class="username">${logInUser.userName} </span> <span class="caret"></span>
-                        <a href="/global/logout.htm"><i class="fa fa-sign-out"></i> Log Out</a>
+                        <a href="./logout.htm"><i class="fa fa-sign-out"></i> Log Out</a>
                       <!--   <ul class="dropdown-menu extended pro-menu fadeInUp animated" tabindex="5003" style="overflow: hidden; outline: none;">
                              <li><a href="<c:url value="/profile" />"><i class="fa fa-briefcase"></i>Profile</a></li>
                              <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
                             <li><a href="#"><i class="fa fa-bell"></i> Friends <span class="label label-info pull-right mail-info">5</span></a></li>
-                            <li><a href="/global/logout.htm"><i class="fa fa-sign-out"></i> Log Out</a></li>
+                            <li><a href="./logout.htm"><i class="fa fa-sign-out"></i> Log Out</a></li>
                         </ul> -->
                     </li>
                     <!-- user login dropdown end -->       

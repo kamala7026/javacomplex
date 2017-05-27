@@ -132,8 +132,10 @@
                                     <div class="col-md-3 col-md-offset-9">
                                         <p class="text-right"><b>Sub-total:</b> ${invoice.basicAmount}</p>
                                         <p class="text-right">VAT: ${invoice.vatAmount}</p>
+                                        <p class="text-right">Paid: ${invoice.paidAmount}</p>
                                         <hr>
-                                        <h3 class="text-right">${invoice.billAmount}</h3>
+                                        <h3 class="text-right">${invoice.dueAmount}</h3>
+                                        
                                     </div>
                                 </div>
                                 <hr>
