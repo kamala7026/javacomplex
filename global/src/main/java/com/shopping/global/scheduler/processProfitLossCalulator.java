@@ -25,7 +25,7 @@ public class processProfitLossCalulator {
 	@Autowired
 	private StockDAO stockDAO;
 	
-	@Scheduled(fixedDelay = 3600000)
+	@Scheduled(fixedDelay = 360000)
 	private void processProfitLossCal(){
 		try {
 			Double totalProfit=(double) 0;

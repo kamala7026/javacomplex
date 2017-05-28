@@ -362,7 +362,7 @@ public class BillDAO {
 			try {
 				tx.begin();
 				@SuppressWarnings("unchecked")
-				List<TdPurchaseHistory> purchaseRecord=session.createQuery("from TdPurchaseHistory where processed != :searchString").setParameter("searchString","D").list();
+				List<TdPurchaseHistory> purchaseRecord=session.createQuery("from TdPurchaseHistory where processed is null").list();
 				return purchaseRecord;
 			} catch (Exception e) {
 				tx.rollback();
