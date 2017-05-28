@@ -38,10 +38,10 @@ public class BillController {
 
 	@Autowired
 	private BillServiceBO billService;
-	
+
 
 	final static Logger logger = LoggerFactory.getLogger(BillController.class);
-	
+
 	@RequestMapping(value=HtmConstants.NEW_BILL_PAGE,method={RequestMethod.GET,RequestMethod.POST})
 	public String redirectToNewBillPage(Model model) {
 		logger.debug("redirectToNewBillPage :START");
@@ -114,7 +114,7 @@ public class BillController {
 		logger.debug("generateNewBill :END");
 		return new ModelAndView( "newBill" ) ;
 	}
-	
+
 	@RequestMapping(value=HtmConstants.ADD_NEW_ROWS_FOR_BILL,method={RequestMethod.GET,RequestMethod.POST})
 	public String addRowsForBill(Model model,@ModelAttribute("numberOfRows")String numberOfRows,@ModelAttribute("billItem")ListOfProductQuanityDetailsDTO billItem) {
 		logger.debug("addRowsForBill :START");
@@ -135,7 +135,7 @@ public class BillController {
 		logger.debug("addRowsForBill :END");
 		return "newBill";
 	}
-	
+
 	private void generateRows(ListOfProductQuanityDetailsDTO billItems,int numberOfRows){
 		logger.debug("generateRows :START");
 		List<NewBillProductDTO> newRowList=new ArrayList<NewBillProductDTO>();
@@ -161,7 +161,7 @@ public class BillController {
 			//reportUtil.generateReportPDF(request,httpResponse, new HashMap<String, Object>(), "Employee",datasource);
 		} catch (Exception e) {
 			e.printStackTrace();
-		} 
+		}
 		logger.debug("generatepdf :END");
 		return "printBill";
 	}
@@ -176,11 +176,11 @@ public class BillController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}
 		logger.debug("generateInvoce :START");
 		return "invoice";
 	}
-	
+
 	@RequestMapping(value=HtmConstants.VIEW_BILL,method={RequestMethod.GET,RequestMethod.POST})
 	public String redirectToBillViewPage(Model model, HttpServletRequest request,@ModelAttribute("billDetails")WildCardSearchBean billDetails) {
 		logger.debug("redirectToBillViewPage :START");
@@ -189,7 +189,7 @@ public class BillController {
 				ResponseDTO response=billService.validateAndSearchBillDetails(billDetails);
 				model.addAttribute("billDetailsList",prepareBillDetailsBean(response));
 				model.addAttribute("searchHappen","true");
-			}	
+			}
 			else{
 				model.addAttribute("billDetails",new WildCardSearchBean());
 			}
@@ -206,22 +206,18 @@ public class BillController {
 		logger.debug("prepareBillDetailsBean :END");
 		return newBillDetailsBean;
 	}
-	/*@RequestMapping(value=HtmConstants.VIEW_CUSTOMER_DUES_DETAILS,method={RequestMethod.GET})
-	public  ModelAndView  fetchCustomerDueDetails(Model model, HttpServletRequest request,@ModelAttribute("customerId")String customerId) {
-		logger.debug("fetchCustomerDueDetails :START");
-			if(!StringUtils.isEmpty(customerId)){
-				WildCardSearchBean wildCardSearchBean=new WildCardSearchBean();
-				wildCardSearchBean.setSearchString(customerId);
-				ResponseDTO response=customerService.validateAndFetchCustomerDueDetails(wildCardSearchBean);
-				model.addAttribute("customerDueDetails",prepareCustomerDueDetails(response));
-				model.addAttribute("totalBalance","1000");
+	@RequestMapping(value=HtmConstants.VIEW_BILL_SUB_DETAILS,method={RequestMethod.GET})
+	public  ModelAndView  fetchBillSubDetails(Model model, HttpServletRequest request,@ModelAttribute("billId")String billId) {
+		logger.debug("fetchBillSubDetails :START");
+			if(!StringUtils.isEmpty(billId)){
+				WildCardSearchBean billDetails =new WildCardSearchBean();
+				billDetails.setSearchString(billId);
+				ResponseDTO response=billService.validateAndSearchBillDetails(billDetails);
+				model.addAttribute("billDetailsList",prepareBillDetailsBean(response));
 				model.addAttribute("searchHappen","true");
-			}	
-			else{
-				model.addAttribute("customerSearchDetails",new WildCardSearchBean());
 			}
-		logger.debug("fetchCustomerDueDetails :END");
-        return new ModelAndView( "customerDueDetails" );
+		logger.debug("fetchBillSubDetails :END");
+        return new ModelAndView( "billSubDetails" );
 
-	}*/
+	}
 }

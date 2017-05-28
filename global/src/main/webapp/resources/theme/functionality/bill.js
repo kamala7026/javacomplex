@@ -15,14 +15,14 @@ var Bill={
 			var quantity=selectedDatas[6].trim();
 			var price=selectedDatas[7].trim();
 			var vat=selectedDatas[8].trim();
-			
-			Bill.priceCalculation(price,quantity,vat,index); 
+
+			Bill.priceCalculation(price,quantity,vat,index);
 			$( '[name="billItems['+index+'].quantity"]' ).focus();
 			$( '[name="billItems['+index+'].quantity"]' ).select();
 		},
 		calculateTotalPrice :function(index){
 			var price=  $('[name="billItems['+index+'].price"]').val();
-			var quantity=$('[name="billItems['+index+'].quantity"]').val();               
+			var quantity=$('[name="billItems['+index+'].quantity"]').val();
 			var vat= $('[name="billItems['+index+'].sellvat"]').val();
 			Bill.priceCalculation(price,quantity,vat,index);
 		} ,
@@ -34,39 +34,39 @@ var Bill={
 			var vatAndPrice=price;
 			if(vat !=0){
 				vatAmountItems=(price*vat)/100;
-				
+
 				subtotalForItem=price-vatAmountItems;
 			}
 			var deductTotal=$('[name="billItems['+index+'].totalPrice"]').val();
 			totalAmount=totalAmount-deductTotal;
-			
-			
+
+
 			var deductsubtotal=$('[name="billItems['+index+'].subTotalAmount"]').val();
 			subtotal=subtotal-deductsubtotal;
-			
+
 			var deductvat=$('[name="billItems['+index+'].vatAmount"]').val();
 			totalVat=totalVat-deductvat;
-			
+
 			$('[name="billItems['+index+'].totalPrice"]').val(Bill.round(price * quantity,2));
 			totalAmount=totalAmount+(price * quantity);
 			$('#totalAmount').val(Bill.round(totalAmount,2));
-			
+
 			$('[name="billItems['+index+'].vatAmount"]').val(Bill.round(vatAmountItems  * quantity,2));
 			totalVat=totalVat+(vatAmountItems * quantity);
 			$('#totalVat').val(Bill.round(totalVat,2));
-			
+
 			$('[name="billItems['+index+'].subTotalAmount"]').val(Bill.round(subtotalForItem  * quantity,2));
 			subtotal=subtotal+(subtotalForItem * quantity);
 			$('#subtotal').val(Bill.round(subtotal,2));
 			Bill.calculatedueAmount();
-			
+
 		},
 		resetData :function(index){
-			
+
 			var deductTotal=$('[name="billItems['+index+'].totalPrice"]').val();
 			var deductVat=$('[name="billItems['+index+'].vatAmount"]').val();
 			var deductSubTotal=$('[name="billItems['+index+'].subTotalAmount"]').val();
-			
+
 			$('[name="billItems['+index+'].price"]').val('0.0');
 			$('[name="billItems['+index+'].quantity"]').val('');
 			$('[name="billItems['+index+'].sellvat"]').val('0.0');
@@ -77,18 +77,18 @@ var Bill={
 			$('[name="billItems['+index+'].expDate"]').val('');
 			$('[name="billItems['+index+'].subTotalAmount"]').val('0.0');
 			$('[name="billItems['+index+'].vatAmount"]').val('0.0');
-			
+
 			totalAmount=totalAmount-deductTotal;
 			$('#totalAmount').val(Bill.round(totalAmount,2));
-			
+
 			subtotal=subtotal-deductSubTotal;
 			$('#subtotal').val(Bill.round(subtotal,2));
-			
+
 			totalVat=totalVat-deductVat;
 			$('#totalVat').val(Bill.round(totalVat,2));
 			Bill.calculatedueAmount();
 		},
-		
+
 		calculatedueAmount :function(){
 			var totalAmount=$('#totalAmount').val();
 			var paidAmount= $('#paidAmount').val();
@@ -115,14 +115,14 @@ var Bill={
 							  '_blank' // <- This is what makes it open in a new window.
 							);
 					myWindow.focus();
-					setTimeout(myWindow.print(), 3000); 
+					setTimeout(myWindow.print(), 3000);
 				}
-				
+
 			});
-			
-		
+
+
 		},
-		
+
 		ViewNewBill :function(){
 			data=$('#newBill').serialize();
 			$.ajax({
@@ -155,13 +155,13 @@ var Bill={
 					   $('.wraper').html(data)
 					   console.log('tested Invoice');
 				   },
-				  
+
 				});
 		},
 		searchBillDetails :function(data){
 			  $("subViewDiv").hide();
 			$.ajax({
-				   url: 'fetch_item_details.htm',
+				   url: 'fetch_bill_details.htm',
 				   data: {
 				      billId: data
 				   },
@@ -172,10 +172,10 @@ var Bill={
 				   success: function(data) {
 					   $("#subViewDiv").html( data );
 					   $("#subViewDiv").show();
-					  
+
 				   },
 				   type: 'GET'
 				});
 		}
-		
+
 }

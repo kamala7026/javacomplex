@@ -49,7 +49,8 @@
         <link href="<c:url value="/resources/theme/css/style.css"/>" rel="stylesheet">
         <link href="<c:url value="/resources/theme/css/helper.css"/>" rel="stylesheet">
         
-
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.1.2/css/buttons.dataTables.min.css">
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
@@ -99,12 +100,18 @@
             <!-- Navbar Start -->
             <nav class="navigation">
                 <ul class="list-unstyled">
-                    <li ><a href="<c:url value="/dashboard.htm"/>"><i class="ion-home"></i> <span class="nav-label">Dashboard</span></a></li>
-<%--                     <li class="active"><a href="<c:url value="/projects"/>"><i class="ion-ios7-people"></i> <span class="nav-label">Projects</span></a></li>
-                   <li ><a href="<c:url value="/leave"/>"><i class="ion-ios7-calendar"></i> <span class="nav-label">Leave</span></a></li>
-                    <li ><a href="#"><i class="ion-ios7-calendar-outline "></i> <span class="nav-label">Holiday List</span></a></li>
-                    <li ><a href="#"><i class="ion-ios7-paper-outline "></i> <span class="nav-label">Notice</span></a></li>  --%> 
-                 </ul>
+                	<li class="active"><a href="<c:url value="/dashboard.htm"/>"><i class="ion-home"></i> <span class="nav-label">Dashboard</span></a></li>
+<%--                 	<li ><a href="<c:url value="/new_bill.htm"/>"><i class="ion-ios7-people"></i> <span class="nav-label">New Bill</span></a></li>
+ --%>                    <li ><a href="<c:url value="/add_customer_page_view.htm"/>"><i class="ion-ios7-people"></i> <span class="nav-label">Add Customer</span></a></li>
+                    <li ><a href="<c:url value="/view_customer.htm"/>"><i class="ion-ios7-calendar"></i> <span class="nav-label">View Customer</span></a></li>
+                    <li ><a href="<c:url value="/view_stock.htm"/>"><i class="ion-ios7-paper-outline "></i> <span class="nav-label">View Stock Details</span></a></li>
+                    <li ><a href="<c:url value="/add_stock_page_view.htm"/>"><i class="ion-ios7-calendar-outline "></i> <span class="nav-label">Add New Item</span></a></li>
+                    <%-- <li class="active"><a href="<c:url value="/dashboard"/>"><i class="ion-home"></i> <span class="nav-label">Dashboard</span></a></li>
+                    <li ><a href="<c:url value="/employee/all" />"><i class="ion-ios7-people"></i> <span class="nav-label">Employee Management</span></a></li>
+                    <li ><a href="<c:url value="/employee/all"/>"><i class="ion-ios7-calendar"></i> <span class="nav-label">Leave Management</span></a></li>
+                    <li ><a href="<c:url value="/employee/all"/>"><i class="ion-ios7-calendar-outline "></i> <span class="nav-label">Holiday List</span></a></li>
+                    <li ><a href="<c:url value="/employee/all"/>"><i class="ion-ios7-paper-outline "></i> <span class="nav-label">Notice</span></a></li> --%>
+                </ul>
             </nav>
                 
         </aside>
@@ -184,7 +191,8 @@
                             
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <table id="datatable" class="table table-striped table-bordered" >
+                                    <div class="">
+                                            <table id="datatable" class="table table-striped table-responsive" style="">
                                                 <thead>
 											<tr>
 												<th>Product Id</th>
@@ -224,6 +232,7 @@
                                             </table>
                                         </div>
                                 </div>
+                                </div>
                             </c:when>
                             </c:choose>
                             
@@ -262,14 +271,29 @@
 	    <script src="<c:url value="/resources/theme/functionality/stock.js"/>"></script>
 		
 		
-        <script src="${context}/resources/theme/assets/datatables/jquery.dataTables.min.js"></script>
-        <script src="${context}/resources/theme/assets/datatables/dataTables.bootstrap.js"></script>
+        <%-- <script src="${context}/resources/theme/assets/datatables/jquery.dataTables.min.js"></script>
+        <script src="${context}/resources/theme/assets/datatables/dataTables.bootstrap.js"></script> --%>
+        
+        <script type="text/javascript" src="https://cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/dataTables.buttons.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.flash.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+		<script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+		<script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.html5.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.print.min.js"></script>
 
 		
 		
         <script type="text/javascript">
         $(document).ready(function() {
-            $('#datatable').dataTable();
+        	 $('Table').dataTable({
+                 dom: 'Bfrtip',
+                 buttons: ['copy','csv','excel','pdf','print'],
+                 "scrollX": true
+             });
         } );
 		function formSubmit(){
 			$('#stockView').submit();

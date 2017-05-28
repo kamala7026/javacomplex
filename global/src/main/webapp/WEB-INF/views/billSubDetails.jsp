@@ -40,6 +40,9 @@
         <link href="<c:url value="/resources/theme/css/style.css"/>" rel="stylesheet">
         <link href="<c:url value="/resources/theme/css/helper.css"/>" rel="stylesheet">
         
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.1.2/css/buttons.dataTables.min.css">
+		
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.1.2/css/buttons.dataTables.min.css">
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
@@ -71,56 +74,40 @@
                     <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title" style="display: inline;">Product Quantity And Its Details</h3>  
+                                <h3 class="panel-title" style="display: inline;">Bill Details</h3>  
                                  <!-- <a href="#" class="btn btn-inverse" style="float :right"><i class="fa fa-print"></i></a> -->
                             </div>
                             <div class="panel-body">
                                 
-                             <c:if test="${productDetails ==null && searchHappen=='true'}">
-				                    <p class="text-danger">No transaction found for this customer </p>
-				             </c:if>  
-                          <c:choose>
-				             <c:when test="${productDetails!=null}">
+                             <%-- <c:if test="${billDetailsList ==null && searchHappen=='true'}">
+				                    <p class="text-danger">No matching Bill found</p>
+				             </c:if>  --%>  
+                                       <c:choose>
+				             <c:when test="${billDetailsList!=null}">
                             
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="">
-                                            <table class="table table-responsive" id="product_subview_table">
+                                            <table class="table table-striped table-responsive" id="bill_subview_table">
                                                 <thead>
 											<tr>
-												<th>product Id</th>
-												<th>product Name</th>
-												<th>product Desc  </th>
-												<th>Batch #</th>
-												<th>Mfg Date</th>
-												<th>Expiry Date</th>
-												<th>Purchase Price</th>
-												<th>Purchase Vat</th>
-												<th>Sell Price</th>
-												<th>Sell Vat</th>
-												<th>Available Qty</th>
-												<th>Location</th>
-												<th>Extra Info</th>
+												<th>Bill Number</th>
+												<th>Godown #</th>
+												<th>BillDate</th>
+												<th>Total Amount</th>
+												<th>Paid Amount</th>
+												<th>Due Amount</th>
 											</tr>
 										</thead>
                                                 <tbody>
-											<c:forEach items="${productDetails}" var="productDetail">
 												<tr>
-													<td>${productDetail.productId}</td>
-													<td>${productDetail.productName}</td>
-									     			<td>${productDetail.product_desc}</td> 	
-													<td>${productDetail.productBatchNo}</td>
-													<td>${productDetail.productMfgDt}</td>
-													<td>${productDetail.productExpiryDt}</td>
-													<td>${productDetail.productPurchasePrice}</td>
-													<td>${productDetail.productPurchaseVat}</td>
-													<td>${productDetail.productSellingPrice}</td>
-													<td>${productDetail.productSellVat}</td>
-													<td>${productDetail.productQuantity}</td>
-													<td>${productDetail.productLocation}</td>
-													<td>${productDetail.productExtraInfo}</td>
+													<td>${billDetailsList.billNumber}</td>
+													<td>${billDetailsList.godownNo}</td>
+													<td>${billDetailsList.billDate}</td>
+													<td>${billDetailsList.billAmount}</td>
+													<td>${billDetailsList.paidAmount}</td>
+													<td>${billDetailsList.dueAmount}</td>
 												</tr>
-											</c:forEach>
 										</tbody>
                                             </table>
                                         </div>
@@ -128,7 +115,7 @@
                                 </div>
                             </c:when>
                             </c:choose>
-                              <!-- <div id="customerDueDetails"></div> -->
+                             <div id="customerDueDetails"></div> 
                             </div>
                             </div>
                             </div>
@@ -147,10 +134,10 @@
 		<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.print.min.js"></script> -->
          <script type="text/javascript">
          $(document).ready(function() {
-             $('#product_subview_table').dataTable({
+             $('#bill_subview_table').dataTable({
                  dom: 'Bfrtip',
-                 buttons: ['copy','csv','excel','pdf','print'],
-                 "scrollX": true
+                 buttons: ['copy','csv','excel','pdf','print']
+                 //"scrollX": true
              });
          });
 		/* function addDataHandlers() {
