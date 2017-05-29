@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmailUtility {
 	
-   public void sendMails(String toId,String fromId,String userName,String password,String subject) {
+   public void sendMails(String toId,String fromId,final String userName,final String password,String subject) {
       // Recipient's email ID needs to be mentioned.
      // String to = "ramohanca@gmail.com";
 

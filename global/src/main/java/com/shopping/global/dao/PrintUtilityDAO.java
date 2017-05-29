@@ -176,9 +176,8 @@ public class PrintUtilityDAO {
 				
 				List<Object> result = (List<Object>)criteria.list(); 
 				Iterator itr = result.iterator();
-				List<TdProfitLoss> dto=null;
+				List<TdProfitLoss> dto=new ArrayList<TdProfitLoss>();
 				while(itr.hasNext()){
-					dto=new ArrayList<TdProfitLoss>();
 				   Object[] obj = (Object[]) itr.next();
 				   Double amount = Double.parseDouble(String.valueOf(obj[0])); 
 				   Date Date = dateUtil.stringToDate(String.valueOf(obj[1]), Constants.DATE_FORMAT_STOCK) ; 

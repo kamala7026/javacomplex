@@ -1,6 +1,7 @@
 package com.shopping.global.dao;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +34,10 @@ public class BillDAO {
 
 	final static Logger logger = LoggerFactory.getLogger(BillDAO.class);
 	
+	
+	@Autowired
+	private StockDAO stockDAO;
+
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -330,6 +335,7 @@ public class BillDAO {
 					billItem.setGodownNo(tdBillDetails.getGodownNo());
 					billItem.setPaidAmount(tdBillDetails.getPaidAmount());
 					billItem.setDueAmount(tdBillDetails.getDueAmount());
+					billItem.setBillItems(setItemsFromBill(billSearch));
 					responseDTO.setResponseObject(billItem);
 					responseDTO.setStatus(Constants.SUCCESS);
 				}
@@ -353,7 +359,24 @@ public class BillDAO {
 		logger.debug("searchBillDetails :END");
 		return responseDTO;
 	}
-	
+	List<NewBillProductDTO> setItemsFromBill(WildCardSearchBean billSearch) throws Exception{
+		logger.debug("setItemsFromBill :START");
+		List<NewBillProductDTO> itemsFromBill=new ArrayList<NewBillProductDTO>();
+		List<TdItemDetailsForBill> items=this.fetchItemsFromBill(new BigInteger(billSearch.getSearchString()));
+		for(TdItemDetailsForBill itemsFromDB:items ){
+			NewBillProductDTO billProductDTO=new NewBillProductDTO();
+			billProductDTO.setProductId(itemsFromDB.getProductId().toString());
+			TdProductQuanityDetail tdProductQuanityDetail=stockDAO.fetchProductDetails(itemsFromDB.getProductId().toString());
+			billProductDTO.setPdesc(tdProductQuanityDetail.getProductDesc());
+			billProductDTO.setProductName(tdProductQuanityDetail.getProductName());
+			billProductDTO.setQuantity(itemsFromDB.getQuantity());
+			billProductDTO.setPrice(itemsFromDB.getSellPrice());
+			billProductDTO.setSellvat(itemsFromDB.getSellVat());
+			itemsFromBill.add(billProductDTO);
+		}
+		logger.debug("setItemsFromBill :END");
+		return itemsFromBill;
+	}
 	public List<TdPurchaseHistory> searchBillDetailsForProcess() throws Exception{
 		logger.debug("searchBillDetailsForProcess :START");
 		try {

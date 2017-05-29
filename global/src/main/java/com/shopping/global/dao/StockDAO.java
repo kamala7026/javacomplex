@@ -450,4 +450,33 @@ public class StockDAO {
 		logger.debug("fetchBillItem :END");
 		return stockDetailsList;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public TdProductQuanityDetail fetchProductDetails(String productId) throws Exception{
+		logger.debug("fetchBillItem :START");
+		TdProductQuanityDetail stockDetail=new TdProductQuanityDetail();
+		try {
+			Session session=this.getSessionFactory().openSession();
+			Transaction tx=session.getTransaction();
+			try {
+				tx.begin();
+				 stockDetail=(TdProductQuanityDetail) session.createQuery("from TdProductQuanityDetail where productId = :searchString").setParameter("searchString", new BigInteger(productId)).uniqueResult();
+			} catch (Exception e) {
+				tx.rollback();
+				throw e;
+			}finally{
+				try {
+					session.close();
+				} catch (Exception e2) {
+					tx.rollback();
+					throw e2;
+				}
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+		logger.debug("fetchBillItem :END");
+		return stockDetail;
+	}
+	
 }
