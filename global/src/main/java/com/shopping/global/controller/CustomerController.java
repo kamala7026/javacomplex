@@ -35,13 +35,13 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerServiceBO customerService;
-	
+
 	final static Logger logger = LoggerFactory.getLogger(CustomerController.class);
-	
+
 	@Autowired
 	private PrintUtilityDAO printDAO;
-	
-	
+
+
 	@RequestMapping(value=HtmConstants.ADD_CUSTOMER_PAGE)
 	public String redirectToCustomerAddPage(Model model) {
 		logger.debug("redirectToCustomerAddPage :START");
@@ -57,7 +57,7 @@ public class CustomerController {
 				ResponseDTO response=customerService.validateAndSearchCustomerDetails(customerSearchDetails);
 				model.addAttribute("customerList",prepareCustomerList(response));
 				model.addAttribute("searchHappen","true");
-			}	
+			}
 			else{
 				model.addAttribute("customerSearchDetails",new WildCardSearchBean());
 			}
@@ -72,7 +72,7 @@ public class CustomerController {
 	public String addCustomer(@ModelAttribute("customerDetails")CustomerDetailsBean customerDetails, BindingResult result, ModelMap model) {
 		logger.debug("addCustomer :START");
 		ResponseDTO response=customerService.validateAndSaveCustomerDetails(customerDetails);
-		
+
 		if(response.getStatus().equalsIgnoreCase(Constants.SUCCESS)){
 			model.addAttribute("customerDetails",new CustomerDetailsBean());
 			model.addAttribute("message",response.getMessage());
@@ -117,7 +117,7 @@ public class CustomerController {
 		logger.debug("prepareCustomerPaymnetDetails :END");
 		return customerDue;
 	}
-	
+
 	@RequestMapping(value=HtmConstants.VIEW_CUSTOMER_DUES,method={RequestMethod.GET})
 	public  ModelAndView  fetchCustomerDues(Model model, HttpServletRequest request,@ModelAttribute("customerId")String customerId) {
 		logger.debug("fetchCustomerDues :START");
@@ -127,7 +127,7 @@ public class CustomerController {
 				ResponseDTO response=customerService.validateAndFetchCustomerDues(wildCardSearchBean);
 				model.addAttribute("customerDue",prepareCustomerDueDTO(response));
 				model.addAttribute("searchHappen","true");
-			}	
+			}
 			else{
 				model.addAttribute("customerSearchDetails",new WildCardSearchBean());
 			}
@@ -146,7 +146,7 @@ public class CustomerController {
 				model.addAttribute("customerDueDetails",prepareCustomerDueDetails(response));
 				model.addAttribute("customerPaymentDetails",prepareCustomerPaymnetDetails(response1));
 				model.addAttribute("searchHappen","true");
-			}	
+			}
 			else{
 				model.addAttribute("customerSearchDetails",new WildCardSearchBean());
 			}
@@ -154,7 +154,7 @@ public class CustomerController {
         return new ModelAndView( "customerDueDetails" );
 
 	}
-	
+
 	@RequestMapping(value=HtmConstants.PRINT_VIEW_CUSTOMER_DETAILS_PAGE,method={RequestMethod.GET})
 	public ModelAndView redirectToCustomerPrintPage(Model model,HttpServletRequest request) {
 		logger.debug("redirectToCustomerPrintPage :START");
@@ -164,7 +164,7 @@ public class CustomerController {
 		logger.debug("redirectToCustomerPrintPage :END");
 		return new ModelAndView( "printCustomerDues" );
 	}
-	@RequestMapping(value=HtmConstants.PRINT_CUSTOMER_DETAILS_PAGE,method={RequestMethod.POST})
+	@RequestMapping(value=HtmConstants.CUSTOMER_DUE_DETAILS,method={RequestMethod.POST})
 	public String customerPrintPage(Model model,@ModelAttribute("printCustomerDetails")PrintCustomerDetails printCustomerDetails)  {
 		logger.debug("redirectToCustomerPrintPage :START");
 		 try{
@@ -177,6 +177,16 @@ public class CustomerController {
 			 System.out.println(e);
 		 }
 		logger.debug("redirectToCustomerPrintPage :END");
-		return "printPreview";
+		return "customerDueDetails1";
 	}
+	@RequestMapping(value=HtmConstants.CUSTOMER_DUE_SEARCH,method={RequestMethod.GET})
+	public String customerDueSearch(Model model,@ModelAttribute("customerId")String customerId)  {
+		logger.debug("customerDueSearch :START");
+		PrintCustomerDetails printCustomerDetails=new PrintCustomerDetails();
+		printCustomerDetails.setCustomerId(customerId);
+		model.addAttribute("customerDueSearch",printCustomerDetails);
+		logger.debug("customerDueSearch :END");
+		return "customerDueSearch";
+	}
+
 }

@@ -38,7 +38,7 @@
        -->
         <!-- Responsive-table -->
         <link href="<c:url value="/resources/theme/assets/responsive-table/rwd-table.min.css"/>" rel="stylesheet" type="text/css" media="screen"/>
-        
+        <script src="<c:url value="/resources/theme/functionality/bill.js"/>"></script>
         
         
          <!-- Plugins css -->
@@ -48,7 +48,8 @@
         <!-- Custom styles for this template -->
         <link href="<c:url value="/resources/theme/css/style.css"/>" rel="stylesheet">
         <link href="<c:url value="/resources/theme/css/helper.css"/>" rel="stylesheet">
-        
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.1.2/css/buttons.dataTables.min.css">
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
 
@@ -63,7 +64,7 @@
 	font-size: 16px;
 	padding: 0px 0px 50px;
 }
-#customer_table tr:hover {
+#bill_table tr:hover {
     cursor: pointer;
     
 }
@@ -98,7 +99,7 @@
             <!-- / brand -->
         
             <!-- Navbar Start -->
-           <nav class="navigation">
+            <nav class="navigation">
                 <ul class="list-unstyled">
                 	<li class="active"><a href="<c:url value="/dashboard.htm"/>"><i class="ion-home"></i> <span class="nav-label">Dashboard</span></a></li>
 <%--                 	<li ><a href="<c:url value="/new_bill.htm"/>"><i class="ion-ios7-people"></i> <span class="nav-label">New Bill</span></a></li>
@@ -131,10 +132,10 @@
                 </button>
                 
 
-                   <!-- user login dropdown start-->
+                     <!-- user login dropdown start-->
                     <li class="dropdown text-center" style="float: right;">
                             <span class="username">${logInUser.userName} </span> <span class="caret"></span>
-                        <a href="/../logout.htm"><i class="fa fa-sign-out"></i> Log Out</a>
+                        <a href="./logout.htm"><i class="fa fa-sign-out"></i> Log Out</a>
                       <!--   <ul class="dropdown-menu extended pro-menu fadeInUp animated" tabindex="5003" style="overflow: hidden; outline: none;">
                              <li><a href="<c:url value="/profile" />"><i class="fa fa-briefcase"></i>Profile</a></li>
                              <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
@@ -162,20 +163,20 @@
                     <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title">View Customer</h3>
+                                <h3 class="panel-title">Bill Details</h3>
                             </div>
                             <div class="panel-body">
-                              <form class="form-horizontal" style="margin-bottom: 6px;" method="post" role="form" action="view_customer.htm" id="customerView" modelAttribute="customerSearchDetails">
+                              <form class="form-horizontal" style="margin-bottom: 6px;" method="post" role="form" action="bill_regenerate.htm" id="viewBill" target=_blank modelAttribute="billDetails">
                                     
                                     <div class="form-group">
                                         <label class="col-md-2 control-label" for="example-input1-group2"></label>
                                         <div class="col-md-3">
                                             <div class="input-group">
                                                
-                                                <input type="text" class="form-control" placeholder="Search..."  name="searchString" onkeypress="return numeric(event)">
+                                                <input type="text" class="form-control" placeholder="Bill ID"  name="searchString" onkeypress="return alpha(event)">
                                             
                                              <span class="input-group-btn">
-                                                <button onclick="formSubmit()" type="button" class="btn btn-effect-ripple btn-primary"><i class="fa fa-search"></i></button>
+                                                <button onclick="formSubmit()" type="button" class="btn btn-effect-ripple btn-primary"><i class="fa fa-print"></i></button>
                                                 </span></div>
                                         </div>
                                         
@@ -185,33 +186,35 @@
                                   
                                
                              </form>
-							 <c:if test="${customerList ==null && searchHappen=='true'}">
-				                    <p class="text-danger">No matching customer found</p>
+							 <c:if test="${billDetailsList ==null && searchHappen=='true'}">
+				                    <p class="text-danger">No matching Bill found</p>
 				             </c:if>  
                             <c:choose>
-				             <c:when test="${customerList!=null}">
+				             <c:when test="${billDetailsList!=null}">
                             
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="table-responsive">
-                                            <table class="table" id="customer_table">
+                                            <table class="table" id="bill_table">
                                                 <thead>
 											<tr>
-												<th>CustomerId</th>
+												<th>Bill Number</th>
 												<th>Godown #</th>
-												<th>Name</th>
-												<th>Mobile</th>
+												<th>BillDate</th>
+												<th>Total Amount</th>
+												<th>Paid Amount</th>
+												<th>Due Amount</th>
 											</tr>
 										</thead>
                                                 <tbody>
-											<c:forEach items="${customerList}" var="customerdetails">
 												<tr>
-													<td>${customerdetails.customerId}</td>
-													<td>${customerdetails.godownNo}</td>
-													<td>${customerdetails.name}</td>
-													<td>${customerdetails.mobile}</td>
+													<td>${billDetailsList.billNumber}</td>
+													<td>${billDetailsList.godownNo}</td>
+													<td>${billDetailsList.billDate}</td>
+													<td>${billDetailsList.billAmount}</td>
+													<td>${billDetailsList.paidAmount}</td>
+													<td>${billDetailsList.dueAmount}</td>
 												</tr>
-											</c:forEach>
 										</tbody>
                                             </table>
                                         </div>
@@ -221,8 +224,7 @@
                             </c:choose>
                             
                             <div id="subViewDiv"></div>
-                            <div id="customerDueSearch"></div>
-                            <div id="customerDueDetails"></div>
+                         
                         </div>
                     </div>
                 </div> <!-- End row -->
@@ -256,40 +258,44 @@
 		
 		 <!-- multi select2 -->
 		 <script src="<c:url value="/resources/theme/assets/select2/select2.min.js"/>" type="text/javascript"></script>
-		<script src="<c:url value="/resources/theme/functionality/customer.js"/>"></script>
 		
-		<!-- datepicker -->
-		 <script src="<c:url value="/resources/theme/assets/timepicker/bootstrap-datepicker.js"/>"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/dataTables.buttons.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.flash.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+		<script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+		<script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.html5.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.print.min.js"></script>
 		<script type="text/javascript">
 		
 		function formSubmit(){
-			$('#customerView').submit();
+			$('#viewBill').submit();
 		}
 		function addRowHandlers() {
-		    var rows = document.getElementById("customer_table").rows;
+		    var rows = document.getElementById("bill_table").rows;
 		  
 		    for (i = 0; i < rows.length; i++) {
 		        rows[i].onclick = function(){ return function(){
-		               var customerId = this.cells[0].innerHTML;
-		               if(customerId != 'CustomerId'){
-		            	   Customer.searchCustomer(customerId);
+		               var billNumber = this.cells[0].innerHTML;
+		               if(billNumber != 'Bill Number'){
+		            	   Bill.searchBillDetails(billNumber);
 		               }
 		               
 		        };}(rows[i]);
 		    }
 		}
-		
 		window.onload = addRowHandlers();
 		/* $('#manager').select2(); */
 		
 	
-			function alpha(e) {
-				var k;
-				document.all ? k = e.keyCode : k = e.which;
-				return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8
-						|| k == 13 || k == 32 || (k >= 48 && k <= 57));
-			}
-		
+			function numeric(e) {
+			var k;
+			document.all ? k = e.keyCode : k = e.which;
+			return ((k >= 48 && k <= 57) || k == 46);
+		}
 		</script>
         
 		

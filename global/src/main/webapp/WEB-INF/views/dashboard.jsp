@@ -224,6 +224,13 @@
                             <div>View Customer</div>
                         </div>
                     </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="widget-panel widget-style-2 white-bg" id="view_customers" onclick="location.href='bill_search.htm';">
+                            <i class="ion-android-book text-success"></i> 
+                            <h2 ></h2>
+                            <div>Regenerate Bill</div>
+                        </div>
+                    </div>
                 </div> <!-- end row -->
 
 

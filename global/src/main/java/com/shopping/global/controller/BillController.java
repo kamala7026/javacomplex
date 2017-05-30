@@ -220,4 +220,26 @@ public class BillController {
         return new ModelAndView( "billSubDetails" );
 
 	}
+	@RequestMapping(value=HtmConstants.BILL_SEARCH_FOR_REGENERATE_BILL,method={RequestMethod.GET})
+	public  ModelAndView  billSearchForRegenerateBill(Model model, HttpServletRequest request) {
+		logger.debug("billSearchForRegenerateBill :START");
+		model.addAttribute("billDetails",new WildCardSearchBean());
+		logger.debug("billSearchForRegenerateBill :END");
+        return new ModelAndView( "billSearch" );
+
+	}
+	@RequestMapping(value=HtmConstants.REGENERATE_BILL,method={RequestMethod.POST})
+	public  String  regenerateBill(Model model, HttpServletRequest request,@ModelAttribute("billDetails")WildCardSearchBean billDetails1) {
+		logger.debug("fetchBillSubDetails :START");
+		if(!StringUtils.isEmpty(billDetails1.getSearchString())){
+			WildCardSearchBean billDetails =new WildCardSearchBean();
+			billDetails.setSearchString(billDetails1.getSearchString());
+			ResponseDTO response=billService.validateAndSearchBillDetails(billDetails);
+			model.addAttribute("invoice",prepareBillDetailsBean(response));
+			model.addAttribute("searchHappen","true");
+		}
+		logger.debug("fetchBillSubDetails :END");
+		return "regenerateBill";
+
+	}
 }

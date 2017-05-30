@@ -21,7 +21,7 @@ import com.shopping.global.services.ResponseDTO;
 @Component
 public class BillServiceBO {
 	final static Logger logger = LoggerFactory.getLogger(BillServiceBO.class);
-	
+
 	@Autowired
 	private BillService billService;
 
@@ -31,7 +31,7 @@ public class BillServiceBO {
 		logger.debug("validateAndSearchStockDetails :START");
 		ResponseDTO response=null;
 		try {
-			
+
 			NewBillDetailsBean newBilDetailsBean=billService.searchStockDetails();
 			response=new ResponseDTO();
 			response.setResponseObject(newBilDetailsBean);
@@ -48,7 +48,7 @@ public class BillServiceBO {
 		logger.debug("validateAndSearchBathcNoDetails :START");
 		ResponseDTO response=null;
 		try {
-			
+
 				response=billService.validateAndSearchBathcNoDetails(SearchItemDetails);
 		} catch (Exception e) {
 			response.setStatus(Constants.ERROR);
@@ -58,7 +58,7 @@ public class BillServiceBO {
 		logger.debug("validateAndSearchBathcNoDetails :END");
 		return response;
 	}
-	
+
 	public ResponseDTO validateBillItem(ListOfProductQuanityDetailsDTO billItem) throws Exception {
 		logger.debug("validateBillItem :START");
 		ResponseDTO response=null;
@@ -85,7 +85,7 @@ public class BillServiceBO {
 						itemDetails.setProductName(productNameSplited[1]);
 						itemDetails.setProductId(productNameSplited[0]);
 					}
-					
+
 				}
 			}
 			if(StringUtils.isNotBlank(billItem.getCustomerDetails())){
@@ -114,12 +114,12 @@ public class BillServiceBO {
 		}
 		logger.debug("prepareInputForService :END");
 	}
-	
+
 	public ResponseDTO validateAndSearchBillDetails(WildCardSearchBean billSearch) {
 		logger.debug("validateAndSearchBillDetails :START");
 		ResponseDTO response=null;
 		try {
-			
+
 				response=billService.searchBillDetails(billSearch);
 		} catch (Exception e) {
 			response.setStatus(Constants.ERROR);

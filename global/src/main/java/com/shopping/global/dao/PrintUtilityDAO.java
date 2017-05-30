@@ -18,6 +18,8 @@ import org.hibernate.Transaction;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
+import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.Type;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +40,8 @@ public class PrintUtilityDAO {
 
 	@Autowired
 	private DateUtil dateUtil;
-	
-	
+
+
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
@@ -47,33 +49,39 @@ public class PrintUtilityDAO {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+
 	public List<CustomerDueDetailsBean> fetchCustomerBetweenDate(PrintCustomerDetails printCustomerDetails) throws Exception{
 		try
 		{
 			// create our mysql database connection
-			String myDriver = "com.mysql.jdbc.Driver";
-			String myUrl = "jdbc:mysql://localhost:3306/xlhxumrs_shopping";
-			Class.forName(myDriver);
-			Connection conn = DriverManager.getConnection(myUrl, "xlhxumrs_shoppin", "shopping@123");
+			//String myDriver = "com.mysql.jdbc.Driver";
+			//String myUrl = "jdbc:mysql://localhost:3306/xlhxumrs_shopping";
+			//Class.forName(myDriver);
+			Connection con = null;
+			SessionFactoryImplementor sessionFactoryImplementation = (SessionFactoryImplementor)this.getSessionFactory();
+			ConnectionProvider connectionProvider = sessionFactoryImplementation.getConnectionProvider();
+			try {
+				con = connectionProvider.getConnection();
+			}catch(Exception e){
 
-			String Date1="'"+printCustomerDetails.getStartDate()+" 00:00:00'"; 
+			}
+			String Date1="'"+printCustomerDetails.getStartDate()+" 00:00:00'";
 			String Date2="'"+printCustomerDetails.getEndDate()+" 23:59:59'";
-			// our SQL SELECT query. 
+			// our SQL SELECT query.
 			// if you only need a few columns, specify them by name instead of using "*"
 			String query = "SELECT * FROM td_customer_balance_details where (bill_date BETWEEN "+Date1 +"AND" +Date2+" AND customer_id="+ printCustomerDetails.getCustomerId()+")";
 
 			// create the java statement
-			Statement st = conn.createStatement();
+			Statement st = con.createStatement();
 
 			// execute the query, and get a java resultset
 			ResultSet rs = st.executeQuery(query);
 
 			// iterate through the java resultset
-			List<CustomerDueDetailsBean> customerDues=null;
+			List<CustomerDueDetailsBean> customerDues=new ArrayList<CustomerDueDetailsBean>();;
 			while (rs.next())
 			{
-				customerDues=new ArrayList<CustomerDueDetailsBean>();
+
 				CustomerDueDetailsBean customerDueDetailsBean=new CustomerDueDetailsBean();
 				rs.getString("balance_details_code");
 				customerDueDetailsBean.setBillAmount(new Double(rs.getDouble("bill_amount")).toString());
@@ -97,28 +105,31 @@ public class PrintUtilityDAO {
 		try
 		{
 			// create our mysql database connection
-			String myDriver = "com.mysql.jdbc.Driver";
-			String myUrl = "jdbc:mysql://localhost:3306/xlhxumrs_shopping";
-			Class.forName(myDriver);
-			Connection conn = DriverManager.getConnection(myUrl, "xlhxumrs_shoppin", "shopping@123");
+			Connection con = null;
+			SessionFactoryImplementor sessionFactoryImplementation = (SessionFactoryImplementor)this.getSessionFactory();
+			ConnectionProvider connectionProvider = sessionFactoryImplementation.getConnectionProvider();
+			try {
+				con = connectionProvider.getConnection();
+			}catch(Exception e){
 
-			String Date1="'"+printCustomerDetails.getStartDate()+" 00:00:00'"; 
+			}
+
+			String Date1="'"+printCustomerDetails.getStartDate()+" 00:00:00'";
 			String Date2="'"+printCustomerDetails.getEndDate()+" 23:59:59'";
-			// our SQL SELECT query. 
+			// our SQL SELECT query.
 			// if you only need a few columns, specify them by name instead of using "*"
 			String query = "SELECT * FROM td_cash_transaction where (cash_record_date BETWEEN "+Date1 +"AND" +Date2+" AND customer_id="+ printCustomerDetails.getCustomerId()+")";
 
 			// create the java statement
-			Statement st = conn.createStatement();
+			Statement st = con.createStatement();
 
 			// execute the query, and get a java resultset
 			ResultSet rs = st.executeQuery(query);
 
 			// iterate through the java resultset
-			List<TdCashTransaction> customerPay=null;
+			List<TdCashTransaction> customerPay=new ArrayList<TdCashTransaction>();
 			while (rs.next())
 			{
-				customerPay=new ArrayList<TdCashTransaction>();
 				TdCashTransaction tdCashTransaction=new TdCashTransaction();
 				tdCashTransaction.setCashRecordId(new BigInteger(rs.getString("cash_record_id")));
 				tdCashTransaction.setAmount(rs.getDouble("amount"));
@@ -136,7 +147,7 @@ public class PrintUtilityDAO {
 			return null;
 		}
 	}
-	
+
 	public List<TdProfitLoss> fetchProfitBetweenDates(String sDate,String eDate) throws Exception{
 		try {
 			Session session=this.getSessionFactory().openSession();
@@ -147,13 +158,13 @@ public class PrintUtilityDAO {
 				Date date=dateUtil.stringToDate(sDate, Constants.DATE_FORMAT_STOCK);
 				Date date1=dateUtil.stringToDate(eDate, Constants.DATE_FORMAT_STOCK);
 
-//				cr.add(Restrictions.ge("day", date)); 
+//				cr.add(Restrictions.ge("day", date));
 //				cr.add(Restrictions.lt("day", date1));
 //				cr .setProjection(Projections.projectionList().add(Projections.sqlGroupProjection("date(day) as createdDate", "createdDate", new String[] { "createdDate" }, new Type[] { StandardBasicTypes.DATE })));
 //				cr.setProjection((Projections.sum("amount")));
 
-				
-				
+
+
 				ProjectionList projList = Projections.projectionList();
 				projList.add(Projections.sum("tr.amount").as("amount"));
 				projList.add(Projections.sqlGroupProjection("date(day) as createdDate", "createdDate", new String[] { "createdDate" }, new Type[] { StandardBasicTypes.DATE }));
@@ -168,35 +179,35 @@ public class PrintUtilityDAO {
 				                .add(Restrictions.ge("day", date))
 				                .add(Restrictions.lt("day", date1))
 				                .setProjection(projList);
-				
-				
-				
-				
-				
-				
-				List<Object> result = (List<Object>)criteria.list(); 
+
+
+
+
+
+
+				List<Object> result = (List<Object>)criteria.list();
 				Iterator itr = result.iterator();
 				List<TdProfitLoss> dto=new ArrayList<TdProfitLoss>();
 				while(itr.hasNext()){
 				   Object[] obj = (Object[]) itr.next();
-				   Double amount = Double.parseDouble(String.valueOf(obj[0])); 
-				   Date Date = dateUtil.stringToDate(String.valueOf(obj[1]), Constants.DATE_FORMAT_STOCK) ; 
+				   Double amount = Double.parseDouble(String.valueOf(obj[0]));
+				   Date Date = dateUtil.stringToDate(String.valueOf(obj[1]), Constants.DATE_FORMAT_STOCK) ;
 				   TdProfitLoss tdprofitDto=new TdProfitLoss();
 				   tdprofitDto.setAmount(amount);
 				   tdprofitDto.setDay(Date);
 				   dto.add(tdprofitDto);
-				   
+
 				}
-				
+
 				return dto;
 			} catch (Exception e) {
 				tx.rollback();
 				throw e;
 			}finally{
-				try {					
+				try {
 					session.close();
 				} catch (Exception e2) {
-					tx.rollback(); 
+					tx.rollback();
 					throw e2;
 				}
 			}

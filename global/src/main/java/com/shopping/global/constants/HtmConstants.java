@@ -31,7 +31,7 @@ public class HtmConstants {
 
 	public static final String PRINT_VIEW_CUSTOMER_DETAILS_PAGE="printViewCustomerDetails.htm";
 
-	public static final String PRINT_CUSTOMER_DETAILS_PAGE="printCustomerDetails.htm";
+	public static final String CUSTOMER_DUE_DETAILS="customer_due_details.htm";
 
 	public static final String VIEW_CUSTOMER_PAGE="view_customer.htm";
 
@@ -82,7 +82,11 @@ public class HtmConstants {
 	public  static final String PASSWORD_CHANGE="/changePassword.htm";
 
 	public static final String VIEW_BILL_SUB_DETAILS = "fetch_bill_details.htm";
+	public static final String CUSTOMER_DUE_SEARCH = "customer_due_search.htm";
 	public static final String [] WHITE_LISTED_URLS={"/","/changePassword.htm","/resetpaswd.htm","/resetIngpswd.htm","/resetpswd.htm","/register.htm","/forgotPassword.htm","/userAunth.htm","/logout.htm","/recoverpw.htm","/login.htm"};
+
+	public static final String BILL_SEARCH_FOR_REGENERATE_BILL = "bill_search.htm";
+	public static final String REGENERATE_BILL = "bill_regenerate.htm";
 
 
 }

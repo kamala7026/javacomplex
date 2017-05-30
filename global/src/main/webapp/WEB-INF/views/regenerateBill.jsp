@@ -19,7 +19,7 @@
     </head>
 
 
-    <body>
+    <body onload="window.print()">
 
             <div class="wraper container-fluid">
                 <div class="row">
@@ -31,42 +31,51 @@
                                         <h4 class="text-right"><i class="ion-social-buffer"></i>      BGS</h4>
                                         
                                     </div>
-                                    <div class="pull-right">
+                                    <div class="pull-right" style="    margin-right: 179px;">
+                                        <h4>Bill # 
+                                           &nbsp;&nbsp; <strong>${invoice.billNumber}</strong>
+                                        </h4>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        
+                                        <div class="pull-left">
                                             <address>
                                             <h4>Shop Name</h4> <br>
-                                             
+                                              <strong>${invoice.customerName}</strong><br>
                                              <!--  795 Folsom Ave, Suite 600<br>
                                               San Francisco, CA 94107<br>
                                               <abbr title="Phone">P:</abbr> (123) 456-7890 -->
                                               </address>
                                         </div>
-                                    
+                                        <div class="pull-right m-t-30" style="    margin-right: 30px;">
+                                            <p><strong>Bill Date: </strong> ${invoice.billDate} </p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <hr>
-                                <c:if test="${customerDueDetails ==null && customerPaymentDetails == null && searchHappen=='true'}">
-				                    <p class="text-danger">No transaction found for this customer </p>
-				             </c:if>
-				             <c:if test="${customerDueDetails !=null  && searchHappen=='true'}">
-                                       <div class="row" id="due" style="margin-top: 10px; ">
+                                <div class="row" style="margin-top: 10px;">
                                     <div class="col-md-12">
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <thead>
-                                                <tr>
-												<th>Bill No.</th>
-												<th>Bill Date</th>
-												<th>Bill Amount</th>
-												<th>Paid Amount</th>
-												<th>Due Amount</th>
+                                                    <tr><th>#</th>
+                                                    <th>Item</th>
+                                                    <th>Description</th>
+                                                    <th>Quantity</th>
+                                                    <th>Unit Cost</th>
+                                                    <th>Total</th>
                                                 </tr></thead>
                                                 <tbody>
-                                                <c:forEach items="${customerDueDetails}" var="customerDue">
+                                                <c:forEach items="${invoice.billItems}" var="billItems" varStatus="status">
                                                     <tr>
-                                                    <td>${customerDue.billNo}</td>
-													<td>${customerDue.billDate}</td>
-													<td>${customerDue.billAmount}</td>
-													<td>${customerDue.paidAmount}</td>
-													<td>${customerDue.dueAmount}</td>
+                                                        <td>${status.count}</td>
+                                                        <td>${billItems.productName}</td>
+                                                        <td>${billItems.pdesc}</td>
+                                                        <td>${billItems.quantity}</td>
+                                                        <td>${billItems.price}</td>
+                                                        <td>${billItems.totalPrice}</td>
                                                     </tr>
                                                     </c:forEach>
                                                 </tbody>
@@ -74,38 +83,18 @@
                                         </div>
                                     </div>
                                 </div>
-                                </c:if>
-                                 <c:if test="${customerPaymentDetails !=null  && searchHappen=='true'}">
-                                
-                                 <div class="row" id="paid" style="margin-top: 10px; ">
-                                    <div class="col-md-12">
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                           <thead>
-                                                <tr>
-												<th>Cash Record Id</th>
-												<th>Paid Date</th>
-												<th>Payment Type</th>
-												<th>Paid Amount</th>
-                                                </tr>
-                                            </thead>
-                                            
-                                              <tbody>
-                                         <c:forEach items="${customerPaymentDetails}" var="customerPayment">
-												<tr>
-													<td>${customerPayment.cashRecordId}</td>
-													<td>${customerPayment.cashRecordDate}</td>
-													<td>${customerPayment.paymentType}</td>
-													<td>${customerPayment.amount}</td>
-												</tr>
-											</c:forEach>
-                                            </tbody>
-                                        </table>
-                            </div>
-                        </div>
-
-                    </div>
-                    </c:if>
+                                <div class="row" style="border-radius: 0px;margin-right: 21px;">
+                                    <div class="col-md-3 col-md-offset-9">
+                                        <p class="text-right"><b>Sub-total:</b> ${invoice.basicAmount}</p>
+                                        <p class="text-right">VAT: ${invoice.vatAmount}</p>
+                                        <hr>
+                                        <h4 class="text-right">${invoice.billAmount}</h4>
+                                        <p class="text-right">Paid: ${invoice.paidAmount}</p>
+                                        <hr>
+                                        <h2 class="text-right">${invoice.dueAmount}</h2>
+                                    </div>
+                                </div>
+                                <hr>
                             </div>
                         </div>
 
@@ -114,6 +103,7 @@
                 </div>
 
             </div>
+
         <script src="<c:url value="/resources/theme/js/jquery.js"/>"></script>
 
 

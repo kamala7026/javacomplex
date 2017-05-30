@@ -21,6 +21,8 @@ import com.shopping.global.dto.NewBillProductDTO;
 import com.shopping.global.exception.UnknownDbError;
 import com.shopping.global.model.TdCustomerBalance;
 import com.shopping.global.model.TdCustomerBalanceDetail;
+import com.shopping.global.model.TdCustomerDetail;
+import com.shopping.global.model.TdCustomerSearch;
 import com.shopping.global.model.TdItemDetailsForBill;
 import com.shopping.global.model.TdProductQuanityDetail;
 import com.shopping.global.model.TdProfitLoss;
@@ -33,8 +35,8 @@ import com.shopping.global.services.ResponseDTO;
 public class BillDAO {
 
 	final static Logger logger = LoggerFactory.getLogger(BillDAO.class);
-	
-	
+
+
 	@Autowired
 	private StockDAO stockDAO;
 
@@ -54,7 +56,7 @@ public class BillDAO {
 		try {
 			Session session=this.getSessionFactory().openSession();
 			Transaction tx=session.getTransaction();
-			TdPurchaseHistory tdPurchaseHistory	=new TdPurchaseHistory();		
+			TdPurchaseHistory tdPurchaseHistory	=new TdPurchaseHistory();
 			Boolean productQuantityStatus=false;
 			Boolean customerDueStatus=false;
 			Boolean customerTotalDueStatus=false;
@@ -89,13 +91,13 @@ public class BillDAO {
 				}else{
 					throw new UnknownDbError();
 				}
-				
+
 			} catch (Exception e) {
 				tx.rollback();
 				responseDTO.setStatus(Constants.FAILURE);
 				throw e;
 			}finally{
-				try {					
+				try {
 					session.close();
 				} catch (Exception e2) {
 					tx.rollback();
@@ -103,7 +105,7 @@ public class BillDAO {
 					throw e2;
 				}
 			}
-			
+
 		} catch (Exception e) {
 			responseDTO.setStatus(Constants.FAILURE);
 			throw e;
@@ -119,7 +121,7 @@ public class BillDAO {
 
 				Session session=this.getSessionFactory().openSession();
 				Transaction tx=session.getTransaction();
-				TdCustomerBalanceDetail tdCustomerBalanceDetail	=new TdCustomerBalanceDetail();	
+				TdCustomerBalanceDetail tdCustomerBalanceDetail	=new TdCustomerBalanceDetail();
 				tdCustomerBalanceDetail.setBillAmount(billItem.getBillAmount());
 				tdCustomerBalanceDetail.setBillDate(billItem.getBillDate());
 				tdCustomerBalanceDetail.setBillNo(billNo);
@@ -140,7 +142,7 @@ public class BillDAO {
 					tx.rollback();
 					throw e;
 				}finally{
-					try {					
+					try {
 						session.close();
 					} catch (Exception e2) {
 						tx.rollback();
@@ -196,14 +198,14 @@ public class BillDAO {
 				tx.rollback();
 				throw e;
 			}finally{
-				try {					
+				try {
 					session.close();
 				} catch (Exception e2) {
 					tx.rollback();
 					throw e2;
 				}
 			}
-			
+
 		}
 		catch (Exception e) {
 			throw e;
@@ -243,7 +245,7 @@ public class BillDAO {
 					tx.rollback();
 					throw e;
 				}finally{
-					try {					
+					try {
 						session.close();
 					} catch (Exception e2) {
 						tx.rollback();
@@ -277,7 +279,7 @@ public class BillDAO {
 		logger.debug("updateQuantityDetails :END");
 		return productQuantityStatus;
 	}
-	
+
 	private Boolean updateQuantity(NewBillProductDTO billedItem){
 		logger.debug("updateQuantity :START");
 		Boolean updateQuantity=false;
@@ -292,7 +294,7 @@ public class BillDAO {
 					Integer dbQuanity=tdProductQuanityDetail.getProductQuantity().intValue();
 					Integer val= dbQuanity-billedItem.getQuantity().intValue();
 					tdProductQuanityDetail.setProductQuantity( BigInteger.valueOf(val.intValue()));
-					tx.commit();	
+					tx.commit();
 					updateQuantity=true;
 				}
 				else{
@@ -302,21 +304,21 @@ public class BillDAO {
 				tx.rollback();
 				throw e;
 			}finally{
-				try {					
+				try {
 					session.close();
 				} catch (Exception e2) {
 					tx.rollback();
 					throw e2;
 				}
 			}
-			
+
 		} catch (Exception e) {
 			throw e;
 		}
 		logger.debug("updateQuantity :END");
 		return updateQuantity;
 	}
-	
+
 	public ResponseDTO searchBillDetails(WildCardSearchBean billSearch) throws Exception{
 		logger.debug("searchBillDetails :START");
 		ResponseDTO responseDTO=new ResponseDTO();
@@ -335,6 +337,12 @@ public class BillDAO {
 					billItem.setGodownNo(tdBillDetails.getGodownNo());
 					billItem.setPaidAmount(tdBillDetails.getPaidAmount());
 					billItem.setDueAmount(tdBillDetails.getDueAmount());
+					billItem.setBasicAmount(tdBillDetails.getBasicAmount());
+					billItem.setVatAmount(tdBillDetails.getVatAmount());
+					List<TdCustomerDetail> customerDetailsList=session.createQuery("from TdCustomerDetail where customerId = :customerId").setParameter("customerId", tdBillDetails.getCustomerId()).list();
+					if(customerDetailsList.size()!=0){
+						billItem.setCustomerName("<b>"+customerDetailsList.get(0).getName()+"<b></br>"+customerDetailsList.get(0).getAddress());
+					}
 					billItem.setBillItems(setItemsFromBill(billSearch));
 					responseDTO.setResponseObject(billItem);
 					responseDTO.setStatus(Constants.SUCCESS);
@@ -342,6 +350,7 @@ public class BillDAO {
 			} catch (Exception e) {
 				tx.rollback();
 				responseDTO.setStatus(Constants.FAILURE);
+				e.printStackTrace();
 				throw e;
 			}finally{
 				try {
@@ -372,6 +381,7 @@ public class BillDAO {
 			billProductDTO.setQuantity(itemsFromDB.getQuantity());
 			billProductDTO.setPrice(itemsFromDB.getSellPrice());
 			billProductDTO.setSellvat(itemsFromDB.getSellVat());
+			billProductDTO.setTotalPrice(itemsFromDB.getSellPrice()*itemsFromDB.getQuantity());
 			itemsFromBill.add(billProductDTO);
 		}
 		logger.debug("setItemsFromBill :END");
@@ -402,7 +412,7 @@ public class BillDAO {
 			throw e;
 		}
 	}
-	
+
 	public List<TdItemDetailsForBill> fetchItemsFromBill(BigInteger billSearch) throws Exception{
 		logger.debug("fetchItemsFromBill :START");
 		ResponseDTO responseDTO=new ResponseDTO();
@@ -431,38 +441,38 @@ public class BillDAO {
 			throw e;
 		}
 	}
-	
+
 	public void updateitemDetailsForBill(TdPurchaseHistory currentBill) throws Exception{
 		logger.debug("updateitemDetailsForBill :START");
 		try {
 			Session session=this.getSessionFactory().openSession();
 			Transaction tx=session.getTransaction();
-			
+
 			try {
 				tx.begin();
 				session.update(currentBill);
 				tx.commit();
-				
+
 			}
 			catch (Exception e) {
 				tx.rollback();
 				throw e;
 			}finally{
-				try {					
+				try {
 					session.close();
 				} catch (Exception e2) {
 					tx.rollback();
 					throw e2;
 				}
 			}
-			
+
 		}
 		catch (Exception e) {
 			throw e;
 		}
 		logger.debug("updateitemDetailsForBill :END");
 	}
-	
+
 	public Boolean saveProfitDetails(Double totalProfit) throws Exception{
 		logger.debug("saveProfitDetails :START");
 		Boolean transactionDone=false;
@@ -477,13 +487,13 @@ public class BillDAO {
 						session.save(profitLoss);
 						tx.commit();
 						transactionDone=true;
-					
+
 
 				} catch (Exception e) {
 					tx.rollback();
 					throw e;
 				}finally{
-					try {					
+					try {
 						session.close();
 					} catch (Exception e2) {
 						tx.rollback();
@@ -494,11 +504,11 @@ public class BillDAO {
 			} catch (Exception e) {
 				throw e;
 			}
-		
-		
+
+
 		logger.debug("saveProfitDetails :END");
 		return transactionDone;
 	}
-	
-	
+
+
 }

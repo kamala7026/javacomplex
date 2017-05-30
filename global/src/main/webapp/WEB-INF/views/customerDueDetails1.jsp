@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-
+<c:set var="context" value="${pageContext.request.contextPath}" />
 
 <html lang="en">
     
@@ -40,16 +40,17 @@
         <link href="<c:url value="/resources/theme/assets/responsive-table/rwd-table.min.css"/>" rel="stylesheet" type="text/css" media="screen"/>
         
         
-        
          <!-- Plugins css -->
         <link href="<c:url value="/resources/theme/assets/modal-effect/css/component.css"/>" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="<c:url value="/resources/theme/assets/select2/select2.css"/>" />
 
 
         <!-- Custom styles for this template -->
         <link href="<c:url value="/resources/theme/css/style.css"/>" rel="stylesheet">
         <link href="<c:url value="/resources/theme/css/helper.css"/>" rel="stylesheet">
         
-
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.1.2/css/buttons.dataTables.min.css">
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
@@ -63,11 +64,10 @@
 	font-size: 16px;
 	padding: 0px 0px 50px;
 }
-#customer_table tr:hover {
-    cursor: pointer;
-    
-}
 
+#datatable tr:hover {
+    cursor: pointer;
+}
 </style>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -98,7 +98,7 @@
             <!-- / brand -->
         
             <!-- Navbar Start -->
-           <nav class="navigation">
+            <nav class="navigation">
                 <ul class="list-unstyled">
                 	<li class="active"><a href="<c:url value="/dashboard.htm"/>"><i class="ion-home"></i> <span class="nav-label">Dashboard</span></a></li>
 <%--                 	<li ><a href="<c:url value="/new_bill.htm"/>"><i class="ion-ios7-people"></i> <span class="nav-label">New Bill</span></a></li>
@@ -131,10 +131,10 @@
                 </button>
                 
 
-                   <!-- user login dropdown start-->
+                    <!-- user login dropdown start-->
                     <li class="dropdown text-center" style="float: right;">
                             <span class="username">${logInUser.userName} </span> <span class="caret"></span>
-                        <a href="/../logout.htm"><i class="fa fa-sign-out"></i> Log Out</a>
+                        <a href="./logout.htm"><i class="fa fa-sign-out"></i> Log Out</a>
                       <!--   <ul class="dropdown-menu extended pro-menu fadeInUp animated" tabindex="5003" style="overflow: hidden; outline: none;">
                              <li><a href="<c:url value="/profile" />"><i class="fa fa-briefcase"></i>Profile</a></li>
                              <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
@@ -149,80 +149,77 @@
             <!-- Header Ends -->
 
 
-         <!-- Page Content Start -->
-            <!-- ================== -->
+          <!-- ================== -->
 
             <div class="wraper container-fluid">
-                <div class="page-title"> 
-                    <h3 class="title"></h3> 
-                </div>
-
-
                 <div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">View Customer</h3>
-                            </div>
-                            <div class="panel-body">
-                              <form class="form-horizontal" style="margin-bottom: 6px;" method="post" role="form" action="view_customer.htm" id="customerView" modelAttribute="customerSearchDetails">
-                                    
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label" for="example-input1-group2"></label>
-                                        <div class="col-md-3">
-                                            <div class="input-group">
-                                               
-                                                <input type="text" class="form-control" placeholder="Search..."  name="searchString" onkeypress="return numeric(event)">
-                                            
-                                             <span class="input-group-btn">
-                                                <button onclick="formSubmit()" type="button" class="btn btn-effect-ripple btn-primary"><i class="fa fa-search"></i></button>
-                                                </span></div>
-                                        </div>
-                                        
-                                    </div> <!-- form-group -->
-
-                                    
-                                  
-                               
-                             </form>
-							 <c:if test="${customerList ==null && searchHappen=='true'}">
-				                    <p class="text-danger">No matching customer found</p>
-				             </c:if>  
-                            <c:choose>
-				             <c:when test="${customerList!=null}">
-                            
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <div class="table-responsive">
-                                            <table class="table" id="customer_table">
+                            <div class="panel-body" style="font-size:12px">
+							 <c:if test="${customerDueDetails ==null && customerPaymentDetails == null && searchHappen=='true'}">
+				                    <p class="text-danger">No transaction found for this customer </p>
+				             </c:if>
+				             <c:if test="${customerDueDetails !=null  && searchHappen=='true'}">
+                                       <div class="row" id="due" style="margin-top: 10px; ">
+                                    <div class="col-md-12">
+                                        <div class="">
+                                            <table class="table table-striped table-responsive">
                                                 <thead>
-											<tr>
-												<th>CustomerId</th>
-												<th>Godown #</th>
-												<th>Name</th>
-												<th>Mobile</th>
-											</tr>
-										</thead>
+                                                <tr>
+												<th>Bill No.</th>
+												<th>Bill Date</th>
+												<th>Bill Amount</th>
+												<th>Paid Amount</th>
+												<th>Due Amount</th>
+                                                </tr></thead>
                                                 <tbody>
-											<c:forEach items="${customerList}" var="customerdetails">
-												<tr>
-													<td>${customerdetails.customerId}</td>
-													<td>${customerdetails.godownNo}</td>
-													<td>${customerdetails.name}</td>
-													<td>${customerdetails.mobile}</td>
-												</tr>
-											</c:forEach>
-										</tbody>
+                                                <c:forEach items="${customerDueDetails}" var="customerDue">
+                                                    <tr>
+                                                    <td>${customerDue.billNo}</td>
+													<td>${customerDue.billDate}</td>
+													<td>${customerDue.billAmount}</td>
+													<td>${customerDue.paidAmount}</td>
+													<td>${customerDue.dueAmount}</td>
+                                                    </tr>
+                                                    </c:forEach>
+                                                </tbody>
                                             </table>
                                         </div>
                                     </div>
                                 </div>
-                            </c:when>
-                            </c:choose>
-                            
-                            <div id="subViewDiv"></div>
-                            <div id="customerDueSearch"></div>
-                            <div id="customerDueDetails"></div>
+                                </c:if>
+                                 <c:if test="${customerPaymentDetails !=null  && searchHappen=='true'}">
+                                
+                                 <div class="row" id="paid" style="margin-top: 10px; ">
+                                    <div class="col-md-12">
+                                        <div class="">
+                                            <table class="table table-striped table-responsive">
+                                           <thead>
+                                                <tr>
+												<th>Cash Record Id</th>
+												<th>Paid Date</th>
+												<th>Payment Type</th>
+												<th>Paid Amount</th>
+                                                </tr>
+                                            </thead>
+                                            
+                                              <tbody>
+                                         <c:forEach items="${customerPaymentDetails}" var="customerPayment">
+												<tr>
+													<td>${customerPayment.cashRecordId}</td>
+													<td>${customerPayment.cashRecordDate}</td>
+													<td>${customerPayment.paymentType}</td>
+													<td>${customerPayment.amount}</td>
+												</tr>
+											</c:forEach>
+                                            </tbody>
+                                        </table>
+                            </div>
+                        </div>
+
+                    </div>
+                    </c:if>
+                         
                         </div>
                     </div>
                 </div> <!-- End row -->
@@ -231,6 +228,8 @@
              
           
         </section>
+          
+        
 
 
 
@@ -248,50 +247,38 @@
 		
         <script src="<c:url value="/resources/theme/js/jquery.app.js"/>"></script>
 
-       <%--  <script src="<c:url value="/resources/theme/assets/datatables/jquery.dataTables.min.js"/>"></script>
-        <script src="<c:url value="/resources/theme/assets/datatables/dataTables.bootstrap.js"/>"></script> --%>
 
 		 <!-- responsive-table--> 
         <script src="<c:url value="/resources/theme/assets/responsive-table/rwd-table.min.js"/>" type="text/javascript"></script>
+	    <script src="<c:url value="/resources/theme/functionality/stock.js"/>"></script>
 		
-		 <!-- multi select2 -->
-		 <script src="<c:url value="/resources/theme/assets/select2/select2.min.js"/>" type="text/javascript"></script>
-		<script src="<c:url value="/resources/theme/functionality/customer.js"/>"></script>
 		
-		<!-- datepicker -->
-		 <script src="<c:url value="/resources/theme/assets/timepicker/bootstrap-datepicker.js"/>"></script>
-		<script type="text/javascript">
+        <%-- <script src="${context}/resources/theme/assets/datatables/jquery.dataTables.min.js"></script>
+        <script src="${context}/resources/theme/assets/datatables/dataTables.bootstrap.js"></script> --%>
+        
+      <script type="text/javascript" src="https://cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/tabletools/2.2.2/swf/copy_csv_xls_pdf.swf"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/dataTables.buttons.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.flash.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+		<script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+		<script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.html5.min.js"></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.print.min.js"></script>
+
 		
-		function formSubmit(){
-			$('#customerView').submit();
-		}
-		function addRowHandlers() {
-		    var rows = document.getElementById("customer_table").rows;
-		  
-		    for (i = 0; i < rows.length; i++) {
-		        rows[i].onclick = function(){ return function(){
-		               var customerId = this.cells[0].innerHTML;
-		               if(customerId != 'CustomerId'){
-		            	   Customer.searchCustomer(customerId);
-		               }
-		               
-		        };}(rows[i]);
-		    }
-		}
 		
-		window.onload = addRowHandlers();
-		/* $('#manager').select2(); */
-		
-	
-			function alpha(e) {
-				var k;
-				document.all ? k = e.keyCode : k = e.which;
-				return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8
-						|| k == 13 || k == 32 || (k >= 48 && k <= 57));
-			}
+        <script type="text/javascript">
+        $(document).ready(function() {
+        	 $('Table').dataTable({
+                 dom: 'Bfrtip',
+                 buttons: ['copy','csv','excel','pdf','print']
+                 
+             });
+        } );
 		
 		</script>
-        
 		
     </body>
 

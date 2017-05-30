@@ -99,18 +99,18 @@
                                                 <tbody>
 											<c:forEach items="${customerDue}" var="customerDue">
 												<tr>
-														<c:set var="titleURL">
+														<%-- <c:set var="titleURL">
 															<c:url value="printViewCustomerDetails.htm">
 																<c:param name="customerId"
 																	value="${customerDue.customerId}" />
 															</c:url>
-														</c:set>
+														</c:set> --%>
 													<td>${customerDue.customerId}</td>
 													<td>${customerDue.godownno}</td>
 													<td>${customerDue.name}</td>
 													<td>${customerDue.totalBalance}</td>
-													<td>click here to view  Details</td>
-													<td><a href="${titleURL}" class="btn btn-inverse" style="float :right"><i class="fa fa-print"></i></a>													</td>
+													<%-- <td>click here to view  Details</td>
+													<td><a href="${titleURL}" class="btn btn-inverse" style="float :right"><i class="fa fa-print"></i></a>													</td> --%>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -125,24 +125,29 @@
                             </div>
                             </div>
                             </div>
+                               <!-- js placed at the end of the document so the pages load faster -->
+        <script src="<c:url value="/resources/theme/js/jquery.js"/>"></script>
+        <script src="<c:url value="/resources/theme/js/bootstrap.min.js"/>"></script>
+		<!-- datepicker -->
+		 <script src="<c:url value="/resources/theme/assets/timepicker/bootstrap-datepicker.js"/>"></script>
+		 
          <script type="text/javascript">
-		function addDataHandlers() {
-			var rows = document.getElementById("customer_due_table").rows;
-			  
-		    for (i = 0; i < rows.length; i++) {
-		        rows[i].onclick = function(){ return function(){
-		               var customerId = this.cells[0].innerHTML;
-		               if(customerId != 'CustomerId'){
-		            	   Customer.customerDueDetails(customerId);
-		               }
-		               
-		        };}(rows[i]);
-		    } 
-			
-		   
-		}
+         function customerDueRowHandlers() {
+ 		    var rows = document.getElementById("customer_due_table").rows;
+ 		  
+ 		    for (var i = 0; i < rows.length; i++) {
+ 		        rows[i].onclick = function(){ return function(){
+ 		               var customerId = this.cells[0].innerHTML;
+ 		               if(customerId != 'CustomerId'){
+ 		            	   Customer.customerDueSearch(customerId);
+ 		               }
+ 		               
+ 		        };}(rows[i]);
+ 		    }
+ 		}
+ 		
 		
-		window.onload = addDataHandlers();
+		window.onload = customerDueRowHandlers();
 		/* $('#manager').select2(); */
 		</script>
                             </body>
