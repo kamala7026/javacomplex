@@ -174,13 +174,52 @@
                             <div>View Stock</div>
                         </div>
                     </div>
+                      <!-- <div class="col-lg-3 col-sm-6">
+                        <div class="widget-panel widget-style-2 white-bg" id="view_profit_loss" onclick="location.href='view_profit_loss.htm';">
+                            <i class="ion-speedometer text-info"></i> 
+                            <h2 ></h2>
+                            <div>View Profit</div>
+                        </div>
+                    </div>
+                    -->
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="widget-panel widget-style-2 white-bg" id="add_cash" onclick="location.href='add_cash_transaction.htm';">
+                            <i class="ion-xbox text-pink"></i> 
+                            <h2></h2>
+                            <div>Add Cash Payment</div>
+                        </div>
+                    </div>
+                </div> <!-- end row -->
+                <div class="row">
+                    
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="widget-panel widget-style-2 white-bg" id="view_bill" onclick="location.href='view_bill.htm';">
+                             <i class="ion-eye text-info"></i> 
+                            <h2 ></h2>
+                            <div>View Bill Details</div>
+                        </div>
+                    </div>
+                   <!--  <div class="col-lg-3 col-sm-6">
+                        <div class="widget-panel widget-style-2 white-bg" id="return_item" onclick="location.href='return_item.htm';">
+                            <i class="ion-planet text-purple"></i> 
+                            <h2 ></h2>
+                            <div>Return Item</div>
+                        </div>
+                    </div> -->
                     <div class="col-lg-3 col-sm-6">
                         <div class="widget-panel widget-style-2 white-bg" id="view_customers" onclick="location.href='view_customer.htm';">
-                           <i class="ion-android-contacts text-success"></i> 
+                            <i class="ion-android-contacts text-success"></i> 
+                            <h2 ></h2>
                             <div>View Customer</div>
                         </div>
                     </div>
-                   
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="widget-panel widget-style-2 white-bg" id="view_customers" onclick="location.href='bill_search.htm';">
+                            <i class="ion-android-book text-success"></i> 
+                            <h2 ></h2>
+                            <div>Regenerate Bill</div>
+                        </div>
+                    </div>
                 </div> <!-- end row -->
 
 

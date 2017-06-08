@@ -155,6 +155,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-default">
+                            <form class="form-horizontal" style="margin-bottom: 6px;" method="post" role="form" action="bill_regenerate.htm" id="printBill" target=_blank modelAttribute="billDetails">
+                                       <input type="hidden" class="form-control" placeholder="Bill ID"  name="searchString" id="billID">
+                             </form>
                             <div class="panel-body" style="font-size:12px">
 							 <c:if test="${customerDueDetails ==null && customerPaymentDetails == null && searchHappen=='true'}">
 				                    <p class="text-danger">No transaction found for this customer </p>
@@ -171,6 +174,7 @@
 												<th>Bill Amount</th>
 												<th>Paid Amount</th>
 												<th>Due Amount</th>
+												<th>Print Bill</th>
                                                 </tr></thead>
                                                 <tbody>
                                                 <c:forEach items="${customerDueDetails}" var="customerDue">
@@ -180,6 +184,7 @@
 													<td>${customerDue.billAmount}</td>
 													<td>${customerDue.paidAmount}</td>
 													<td>${customerDue.dueAmount}</td>
+													<td><button onclick="billPrintSubmit('${customerDue.billNo}')" type="button" class="btn btn-effect-ripple btn-primary"><i class="fa fa-print"></i></button></td>
                                                     </tr>
                                                     </c:forEach>
                                                 </tbody>
@@ -270,6 +275,10 @@
 		
 		
         <script type="text/javascript">
+        function billPrintSubmit(billId){
+			$("#billID").val(billId);
+			$("#printBill").submit();
+            }
         $(document).ready(function() {
         	 $('Table').dataTable({
                  dom: 'Bfrtip',

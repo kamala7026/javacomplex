@@ -24,6 +24,7 @@ import com.shopping.global.bo.SignUpBO;
 import com.shopping.global.constants.Constants;
 import com.shopping.global.constants.HtmConstants;
 import com.shopping.global.dao.LoginDAO;
+import com.shopping.global.dto.LoginDTO;
 import com.shopping.global.dto.PasswordChangeDTO;
 import com.shopping.global.dto.SignUpDTO;
 import com.shopping.global.util.EmailUtility;
@@ -35,28 +36,28 @@ import com.shopping.global.util.EncryptDecrypt;
 public class HomeController {
 
 	final static Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
+
 	@Autowired
 	private SignUpBO SignUpBO;
-	
+
 	@Autowired
 	private EmailUtility emailUtility;
-	
+
 	@Autowired
 	private LoginDAO logInDAO;
-	
+
 	@Autowired
 	private EncryptDecrypt encryptDecrypt;
-	
+
 	@Value("${fromId}")
     String fromId;
-	
+
 	@Value("${fromUserName}")
     String fromUserName;
-	
+
 	@Value("${password}")
     String password;
-	
+
 	@RequestMapping(value=HtmConstants.LOGIN)
 	public String login(Model model) {
 		logger.debug("login :START");
@@ -87,8 +88,8 @@ public class HomeController {
 	@RequestMapping(value=HtmConstants.RESET_ING_PSWRD)
 	public String resetIngPassword(Model model) {
 		logger.debug("resetIngPassword :START");
-		
-		
+
+
 		model.addAttribute("user",new LoginBean());
 		logger.debug("resetIngPassword :END");
 		return "index";
@@ -113,11 +114,11 @@ public class HomeController {
 			}
 
 		}
-		
+
 		logger.debug("recoverPassword :END");
 		return "recoverpw";
 	}
-	
+
 	@RequestMapping(value=HtmConstants.RESET_PASWRD)
 	public String resetPassword(Model model,HttpServletRequest request) {
 		logger.debug("resetPassword :START");
@@ -125,13 +126,13 @@ public class HomeController {
 		if(StringUtils.isNotBlank(requestValue)){
 			//this.validateRequestValue(requestValue);
 			String [] inputs=requestValue.split("###");
-			
+
 			PasswordChangeDTO passwordChangeDTO=new PasswordChangeDTO();
 			passwordChangeDTO.setUserName(inputs[1]);
 			model.addAttribute("passwordChange",passwordChangeDTO);
 			return "resetNewPassword";
 		}
-		
+
 		logger.debug("resetPassword :END");
 		return "index";
 	}
@@ -172,15 +173,22 @@ public class HomeController {
 		model.addAttribute("searchHappen","true");
 		return "resetNewPassword";
 	}
-	
+
 	@RequestMapping(value=HtmConstants.DASHBOARD)
-	public String dashboard(Model model) {
+	public String dashboard(Model model,HttpServletRequest request) {
 		logger.debug("dashboard :START");
 		model.addAttribute("user",new LoginBean());
 		logger.debug("dashboard :END");
-		return "dashboard";
+		String redirect=null;
+		LoginDTO loginDTO=(LoginDTO)request.getSession(true).getAttribute("logInUser");
+		if(loginDTO.getUserRole().equalsIgnoreCase(Constants.ADMIN)){
+			redirect="dashboard";
+		}else{
+			redirect="dashboardBiller";
+		}
+		return redirect;
 	}
-	
+
 	@RequestMapping(value=HtmConstants.NEW_REGISTER)
 	public String redirectToNewRegisterPage(Model model) {
 		logger.debug("redirectToNewRegisterPage :START");
@@ -188,7 +196,7 @@ public class HomeController {
 		logger.debug("redirectToNewRegisterPage :END");
 		return "register";
 	}
-	
+
 	@RequestMapping(value=HtmConstants.REGISTER)
 	public String register(Model model,@ModelAttribute("signUp")SignUpDTO signUpData) {
 		logger.debug("register :START");
@@ -199,7 +207,7 @@ public class HomeController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		logger.debug("register :END");
 		return "index";
 	}

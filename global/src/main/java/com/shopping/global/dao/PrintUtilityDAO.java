@@ -51,13 +51,14 @@ public class PrintUtilityDAO {
 	}
 
 	public List<CustomerDueDetailsBean> fetchCustomerBetweenDate(PrintCustomerDetails printCustomerDetails) throws Exception{
+		Connection con = null;
 		try
 		{
 			// create our mysql database connection
 			//String myDriver = "com.mysql.jdbc.Driver";
 			//String myUrl = "jdbc:mysql://localhost:3306/xlhxumrs_shopping";
 			//Class.forName(myDriver);
-			Connection con = null;
+
 			SessionFactoryImplementor sessionFactoryImplementation = (SessionFactoryImplementor)this.getSessionFactory();
 			ConnectionProvider connectionProvider = sessionFactoryImplementation.getConnectionProvider();
 			try {
@@ -99,13 +100,21 @@ public class PrintUtilityDAO {
 			System.err.println("Got an exception! ");
 			System.err.println(e.getMessage());
 			return null;
+		}finally{
+			try {
+				con.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
 		}
 	}
 	public List<TdCashTransaction> fetchCustomerPayBetweenDate(PrintCustomerDetails printCustomerDetails) throws Exception{
+		Connection con = null;
+		Statement st=null;
 		try
 		{
 			// create our mysql database connection
-			Connection con = null;
+
 			SessionFactoryImplementor sessionFactoryImplementation = (SessionFactoryImplementor)this.getSessionFactory();
 			ConnectionProvider connectionProvider = sessionFactoryImplementation.getConnectionProvider();
 			try {
@@ -121,7 +130,7 @@ public class PrintUtilityDAO {
 			String query = "SELECT * FROM td_cash_transaction where (cash_record_date BETWEEN "+Date1 +"AND" +Date2+" AND customer_id="+ printCustomerDetails.getCustomerId()+")";
 
 			// create the java statement
-			Statement st = con.createStatement();
+			st = con.createStatement();
 
 			// execute the query, and get a java resultset
 			ResultSet rs = st.executeQuery(query);
@@ -145,6 +154,12 @@ public class PrintUtilityDAO {
 			System.err.println("Got an exception! ");
 			System.err.println(e.getMessage());
 			return null;
+		}finally{
+			try {
+				con.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
 		}
 	}
 

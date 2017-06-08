@@ -186,42 +186,8 @@
                                   
                                
                              </form>
-							 <c:if test="${billDetailsList ==null && searchHappen=='true'}">
-				                    <p class="text-danger">No matching Bill found</p>
-				             </c:if>  
-                            <c:choose>
-				             <c:when test="${billDetailsList!=null}">
-                            
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <div class="table-responsive">
-                                            <table class="table" id="bill_table">
-                                                <thead>
-											<tr>
-												<th>Bill Number</th>
-												<th>Godown #</th>
-												<th>BillDate</th>
-												<th>Total Amount</th>
-												<th>Paid Amount</th>
-												<th>Due Amount</th>
-											</tr>
-										</thead>
-                                                <tbody>
-												<tr>
-													<td>${billDetailsList.billNumber}</td>
-													<td>${billDetailsList.godownNo}</td>
-													<td>${billDetailsList.billDate}</td>
-													<td>${billDetailsList.billAmount}</td>
-													<td>${billDetailsList.paidAmount}</td>
-													<td>${billDetailsList.dueAmount}</td>
-												</tr>
-										</tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </c:when>
-                            </c:choose>
+							 
+                           
                             
                             <div id="subViewDiv"></div>
                          

@@ -188,13 +188,13 @@
                                         <div class="form-group ">
                                             <label for="firstname" class="control-label col-lg-2">Name *</label>
                                             <div class="col-lg-10">
-                                                <input class=" form-control" id="name" name="name" path="name" type="text" onkeypress="return alpha(event)">
+                                                <input class=" form-control" id="name" name="name" path="name" type="text">
                                             </div>
                                         </div>
                                         <div class="form-group ">
                                             <label for="lastname" class="control-label col-lg-2">Godown Number  *</label>
                                             <div class="col-lg-10">
-                                                <input class=" form-control" id="gnumber" name="gnumber" path="gnumber" type="text" onkeypress="return alpha(event)">
+                                                <input class=" form-control" id="gnumber" name="gnumber" path="gnumber" type="text" >
                                             </div>
                                         </div>
                                         <div class="form-group ">

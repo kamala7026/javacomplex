@@ -87,7 +87,7 @@
                                             <address>
                                             <h4>Shop Name <br>
                                             </h4>
-                                              <strong>${invoice.customerName}</strong><br>
+                                              <strong>${invoice.customerDetails}</strong><br>
                                              <!--  795 Folsom Ave, Suite 600<br>
                                               San Francisco, CA 94107<br>
                                               <abbr title="Phone">P:</abbr> (123) 456-7890 -->

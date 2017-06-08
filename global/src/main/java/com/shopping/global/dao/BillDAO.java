@@ -65,7 +65,11 @@ public class BillDAO {
 			tdPurchaseHistory.setBillAmount(billItem.getBillAmount());
 			tdPurchaseHistory.setBillDate(billItem.getBillDate());
 			if(StringUtils.isNotBlank(billItem.getCustomerId())){
-			tdPurchaseHistory.setCustomerId(new BigInteger(billItem.getCustomerId()));
+				List<TdCustomerDetail> customerDetailsList=session.createQuery("from TdCustomerDetail where customerId = :customerId").setParameter("customerId", new BigInteger(billItem.getCustomerId())).list();
+				if(customerDetailsList.size()!=0){
+					billItem.setCustomerDetails("<b>"+customerDetailsList.get(0).getName()+"<b></br>"+customerDetailsList.get(0).getAddress());
+				}
+				tdPurchaseHistory.setCustomerId(new BigInteger(billItem.getCustomerId()));
 		    }
 			else{
 				tdPurchaseHistory.setCustomerId(null);
