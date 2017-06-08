@@ -4347,13 +4347,6 @@ ALTER TABLE `td_item_details_for_bill`
 ALTER TABLE `td_product_quanity_details`
   ADD PRIMARY KEY (`product_id`),
   ADD UNIQUE KEY `product_id` (`product_id`);
-
---
--- Indexes for table `td_profit_loss`
---
-ALTER TABLE `td_profit_loss`
-  ADD PRIMARY KEY (`day`);
-
 --
 -- Indexes for table `td_purchase_history`
 --
