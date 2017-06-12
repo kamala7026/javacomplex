@@ -62,9 +62,9 @@
                     required: true,
                     minlength: 2
                 },
-                gnumber: {
+                /*gnumber: {
                     required: true,
-                },
+                },*/
                 mobile: {
                     required: true,
                     number: true,
@@ -78,10 +78,10 @@
             	name: {
                     required: "Please enter a name",
                     minlength: "Your username must consist of at least 2 characters"
-                },
+                }/*,
                 gnumber: {
                     required: "Please enter a Godown number",
-                },
+                },*/,
                 mobile: {
                     required: "Please enter a valid mobile number",
                     minlength: "Mobile number must consist of 10 characters",

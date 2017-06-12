@@ -27,7 +27,7 @@ import com.shopping.global.services.ResponseDTO;
 public class CustomerDAO {
 
 	final static Logger logger = LoggerFactory.getLogger(CustomerDAO.class);
-	
+
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -38,7 +38,7 @@ public class CustomerDAO {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+
 	public ResponseDTO searchCustomerDetails(WildCardSearchBean customerSearch) throws Exception{
 		logger.debug("searchCustomerDetails :START");
 		ResponseDTO responseDTO=new ResponseDTO();
@@ -90,7 +90,7 @@ public class CustomerDAO {
 				responseDTO.setStatus(Constants.FAILURE);
 				throw e;
 			}finally{
-				try {					
+				try {
 					session.close();
 				} catch (Exception e2) {
 					tx.rollback();
@@ -98,7 +98,7 @@ public class CustomerDAO {
 					throw e2;
 				}
 			}
-			
+
 		} catch (Exception e) {
 			responseDTO.setStatus(Constants.FAILURE);
 			throw e;
@@ -251,5 +251,76 @@ public class CustomerDAO {
 		logger.debug("prepareCustomerAllDetailsObject :END");
 		return customerSearchDTO;
 	}
-	
+
+	public ResponseDTO getCustomerDetails(CustomerSearchDTO customer) {
+		logger.debug("getCustomerDetails :START");
+		ResponseDTO responseDTO=new ResponseDTO();
+		try {
+			Session session=this.getSessionFactory().openSession();
+			Transaction tx=session.getTransaction();
+			try {
+				tx.begin();
+				@SuppressWarnings("unchecked")
+				List<TdCustomerDetail> customerList=session.createQuery("from TdCustomerDetail where customerId =:SearchString").setParameter("SearchString",new BigInteger(customer.getCustomerId())).list();
+				System.out.println("");
+				if(customerList.size()!=0){
+					responseDTO.setStatus(Constants.SUCCESS);
+					responseDTO.setResponseObject((TdCustomerDetail)customerList.get(0));
+				}
+			} catch (Exception e) {
+				tx.rollback();
+				responseDTO.setStatus(Constants.FAILURE);
+				throw e;
+			}finally{
+				try {
+					session.close();
+				} catch (Exception e2) {
+					tx.rollback();
+					responseDTO.setStatus(Constants.FAILURE);
+					throw e2;
+				}
+			}
+		} catch (Exception e) {
+			responseDTO.setStatus(Constants.FAILURE);
+			throw e;
+		}
+		logger.debug("getCustomerDetails :END");
+		return responseDTO;
+	}
+
+	public ResponseDTO updateCustomer(TdCustomerDetail customer) {
+		logger.debug("saveCustomerDetails :START");
+		ResponseDTO responseDTO=new ResponseDTO();
+		try {
+			Session session=this.getSessionFactory().openSession();
+			Transaction tx=session.getTransaction();
+			try {
+				tx.begin();
+				session.update(customer);
+				tx.commit();
+				responseDTO.setMessage(customer.getCustomerId().toString());
+				responseDTO.setStatus(Constants.SUCCESS);
+				responseDTO.setResponseObject(customer);
+			} catch (Exception e) {
+				tx.rollback();
+				responseDTO.setStatus(Constants.FAILURE);
+				throw e;
+			}finally{
+				try {
+					session.close();
+				} catch (Exception e2) {
+					tx.rollback();
+					responseDTO.setStatus(Constants.FAILURE);
+					throw e2;
+				}
+			}
+
+		} catch (Exception e) {
+			responseDTO.setStatus(Constants.FAILURE);
+			throw e;
+		}
+		logger.debug("saveCustomerDetails :END");
+		return responseDTO;
+	}
+
 }

@@ -71,32 +71,32 @@
                 <form:form class="form-horizontal m-t-40" action="new_registration.htm" modelAttribute="signUp" method="POST">
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <form:input class="form-control" type="email" required="true" placeholder="Email" path="email"/>
+                            <input class="form-control" type="email" required="true" placeholder="Email" name="email"/>
                         </div>
                     </div>
                     
                     <div class="form-group ">
                         <div class="col-xs-12">
-                            <form:input class="form-control " type="text" required="true" placeholder="Username" path="userName"/>
+                            <input class="form-control " type="text" required="true" placeholder="Username" name="userName"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <form:input class="form-control " type="password" required="true" placeholder="Password" path="password"/>
+                            <input class="form-control " type="password" required="true" placeholder="Password" name="password"/>
                         </div>
                     </div>
 
  					<div class="form-group">
                         <div class="col-xs-12">
-                            <form:input class="form-control " type="Password" required="true" placeholder="Confirm Password" path="confirmPassword"/>
+                            <input class="form-control " type="Password" required="true" placeholder="Confirm Password" name="confirmPassword"/>
                         </div>
                     </div>
                     <div class="form-group">
                      <div class="col-xs-12">
-                                            <form:select class="form-control" id="userRole" name="userRole"  path="userRole">
-                                                <form:option value="Admin">Admin</form:option>
-                                                <form:option value="Biller">Biller</form:option>
-                                            </form:select>
+                                            <select class="form-control" id="userRole" name="userRole">
+                                                <option value="Admin">Admin</option>
+                                                <option value="Biller">Biller</option>
+                                            </select>
                         </div>
                      </div>            
 		

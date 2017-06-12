@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.shopping.global.bean.LoginBean;
 import com.shopping.global.bo.LoginBO;
+import com.shopping.global.bo.SignUpBO;
 import com.shopping.global.constants.Constants;
 import com.shopping.global.constants.HtmConstants;
 import com.shopping.global.dto.LoginDTO;
+import com.shopping.global.dto.SignUpDTO;
 import com.shopping.global.exception.PasswordIncorrectException;
 import com.shopping.global.exception.UserNotApprovedExeception;
 import com.shopping.global.services.ResponseDTO;
@@ -32,6 +34,9 @@ import com.shopping.global.util.LogUserDetailsUtil;
 public class LoginController {
 	
 	final static Logger logger = LoggerFactory.getLogger(LoginController.class);
+	@Autowired
+	private SignUpBO signUpBO;
+
 	
 	@Autowired
 	private LoginBO loginBo;
@@ -118,4 +123,28 @@ public class LoginController {
         logger.debug("logout :END");	
 	    return "redirect:/login.htm";
 	  }
+	@RequestMapping(value=HtmConstants.REGISTER,method=RequestMethod.POST)
+	public String register(Model model,@ModelAttribute("signUp")SignUpDTO signUpData) {
+		logger.debug("register :START");
+		try {
+			System.out.println("kamla");
+			signUpBO.signUp(signUpData);
+			model.addAttribute("user",new LoginBean());
+			model.addAttribute("signUp",new SignUpDTO());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		logger.debug("register :END");
+		return "register.htm";
+	}
+
+	@RequestMapping(value=HtmConstants.NEW_REGISTER)
+	public String redirectToNewRegisterPage(Model model) {
+		logger.debug("redirectToNewRegisterPage :START");
+		model.addAttribute("signUp",new SignUpDTO());
+		logger.debug("redirectToNewRegisterPage :END");
+		return "register";
+	}
+
 }

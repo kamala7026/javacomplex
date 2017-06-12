@@ -28,7 +28,9 @@ import com.shopping.global.dto.CustomerDueDetailsBean;
 import com.shopping.global.dto.CustomerSearchDTO;
 import com.shopping.global.dto.PrintCustomerDetails;
 import com.shopping.global.model.TdCashTransaction;
+import com.shopping.global.model.TdCustomerDetail;
 import com.shopping.global.services.ResponseDTO;
+import com.shopping.global.util.DateUtil;
 
 @Controller
 public class CustomerController {
@@ -40,7 +42,9 @@ public class CustomerController {
 
 	@Autowired
 	private PrintUtilityDAO printDAO;
-
+	
+	@Autowired
+	private DateUtil dateUtil;
 
 	@RequestMapping(value=HtmConstants.ADD_CUSTOMER_PAGE)
 	public String redirectToCustomerAddPage(Model model) {
@@ -57,9 +61,11 @@ public class CustomerController {
 				ResponseDTO response=customerService.validateAndSearchCustomerDetails(customerSearchDetails);
 				model.addAttribute("customerList",prepareCustomerList(response));
 				model.addAttribute("searchHappen","true");
+				model.addAttribute("customer",new CustomerSearchDTO());
 			}
 			else{
 				model.addAttribute("customerSearchDetails",new WildCardSearchBean());
+				model.addAttribute("customer",new CustomerSearchDTO());
 			}
 		}
 		else{
@@ -67,6 +73,56 @@ public class CustomerController {
 		}
 		logger.debug("redirectToCustomerViewPage :END");
 		return "viewCustomer";
+	}
+	@RequestMapping(value=HtmConstants.EDIT_CUSTOMER_PAGE,method={RequestMethod.POST,RequestMethod.POST})
+	public String editCustomerPage(Model model, HttpServletRequest request,@ModelAttribute("customer")CustomerSearchDTO customer) {
+		logger.debug("editCustomerPage :START");
+			if(!StringUtils.isEmpty(customer.getCustomerId())){
+				ResponseDTO response=customerService.getCustomerDetails(customer);
+				model.addAttribute("customer",prepareResponseObject(response.getResponseObject()));
+				//model.addAttribute("customer",new CustomerSearchDTO());
+			}
+			else{
+				model.addAttribute("customerSearchDetails",new WildCardSearchBean());
+				model.addAttribute("customer",new CustomerSearchDTO());
+			}
+		logger.debug("editCustomerPage :END");
+		return "editCustomer";
+	}
+	@RequestMapping(value=HtmConstants.UPDATE_CUSTOMER_PAGE,method={RequestMethod.POST,RequestMethod.POST})
+	public String updateCustomerPage(Model model, HttpServletRequest request,@ModelAttribute("customer")CustomerSearchDTO customer) {
+		logger.debug("updateCustomerPage :START");
+			if(!StringUtils.isEmpty(customer.getCustomerId())){
+				ResponseDTO response=customerService.updateCustomer(customer);
+				if(response.getStatus().equalsIgnoreCase(Constants.SUCCESS)){
+					model.addAttribute("message",response.getMessage());
+					model.addAttribute("status",Constants.SUCCESS);
+					model.addAttribute("customer",prepareResponseObject(response.getResponseObject()));
+				}
+				else{
+					model.addAttribute("status",Constants.ERROR);
+					model.addAttribute("message",response.getMessage());
+					model.addAttribute("customer",customer);
+				}
+			}
+		logger.debug("updateCustomerPage :END");
+		return "editCustomer";
+	}
+	private CustomerSearchDTO prepareResponseObject(Object responseObject) {
+		TdCustomerDetail tdCustomerDetail=(TdCustomerDetail)responseObject;
+		CustomerSearchDTO customerSearchDTO=new CustomerSearchDTO();
+		customerSearchDTO.setAddress(tdCustomerDetail.getAddress());
+		customerSearchDTO.setCity(tdCustomerDetail.getCity());
+		customerSearchDTO.setCustomerId(tdCustomerDetail.getCustomerId()+"");
+		customerSearchDTO.setDob(dateUtil.dateToString(tdCustomerDetail.getDob()));
+		customerSearchDTO.setEmail(tdCustomerDetail.getEmail());
+		customerSearchDTO.setGodownNo(tdCustomerDetail.getGodownNo());
+		customerSearchDTO.setLandline(tdCustomerDetail.getLandline());
+		customerSearchDTO.setMobile(tdCustomerDetail.getMobile());
+		customerSearchDTO.setName(tdCustomerDetail.getName());
+		customerSearchDTO.setSphone(tdCustomerDetail.getSecondaryPhone());
+		//customerSearchDTO.setState(state);
+		return customerSearchDTO;
 	}
 	@RequestMapping(value=HtmConstants.ADD_CUSTOMER,method=RequestMethod.POST)
 	public String addCustomer(@ModelAttribute("customerDetails")CustomerDetailsBean customerDetails, BindingResult result, ModelMap model) {

@@ -5,11 +5,11 @@ import java.io.Serializable;
 public class CustomerDetailsBean  implements Serializable{
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -8399133822363461350L;
 	private String name;
-	private String   gnumber;
+	private String gnumber;
 	private String email;
 	private String address;
 	private String state;
@@ -18,8 +18,17 @@ public class CustomerDetailsBean  implements Serializable{
 	private String landline;
 	private String sphone;
 	private String dob;
-	
-	
+	private String customerId;
+
+
+	public String getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
+	}
+
 	public String getLandline() {
 		return landline;
 	}
@@ -110,5 +119,5 @@ public class CustomerDetailsBean  implements Serializable{
 	}
 
 
-	
+
 }

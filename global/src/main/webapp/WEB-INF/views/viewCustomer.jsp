@@ -165,6 +165,9 @@
                                 <h3 class="panel-title">View Customer</h3>
                             </div>
                             <div class="panel-body">
+                            <form class="form-horizontal" style="margin-bottom: 6px;" method="post" role="form" action="edit_customer.htm" id="editCustomerAction" modelAttribute="customer">
+                            	<input type="hidden" name="customerId" id="customerId"/>
+                            </form>
                               <form class="form-horizontal" style="margin-bottom: 6px;" method="post" role="form" action="view_customer.htm" id="customerView" modelAttribute="customerSearchDetails">
                                     
                                     <div class="form-group">
@@ -201,6 +204,7 @@
 												<th>Godown #</th>
 												<th>Name</th>
 												<th>Mobile</th>
+												<th>Edit</th>
 											</tr>
 										</thead>
                                                 <tbody>
@@ -210,6 +214,7 @@
 													<td>${customerdetails.godownNo}</td>
 													<td>${customerdetails.name}</td>
 													<td>${customerdetails.mobile}</td>
+													<td><button onclick="editCustomer('${customerdetails.customerId}')" type="button" class="btn btn-effect-ripple btn-primary"><i class="fa fa-edit"></i></button></td>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -265,10 +270,14 @@
 		function formSubmit(){
 			$('#customerView').submit();
 		}
+		 function editCustomer(customerId){
+				$("#customerId").val(customerId);
+				$("#editCustomerAction").submit();
+	            }
 		function addRowHandlers() {
 		    var rows = document.getElementById("customer_table").rows;
 		  
-		    for (i = 0; i < rows.length; i++) {
+		    for (var i = 0; i < rows.length; i++) {
 		        rows[i].onclick = function(){ return function(){
 		               var customerId = this.cells[0].innerHTML;
 		               if(customerId != 'CustomerId'){

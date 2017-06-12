@@ -1,5 +1,6 @@
 package com.shopping.global.util;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,7 +13,14 @@ public class DateUtil {
 
 	final static Logger logger = LoggerFactory.getLogger(DateUtil.class);
 	
-	
+	public String dateToString(Date date){
+		if(date==null){
+			return "";
+		}
+		DateFormat df = new SimpleDateFormat("yyyy-mm-dd");  
+		String text = df.format(date);
+		return text; 
+	}
 	public  Date stringToDate(String date,String format)
 	{
 		logger.debug("stringToDate :START");

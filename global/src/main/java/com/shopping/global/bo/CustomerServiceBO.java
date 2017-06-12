@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import com.shopping.global.bean.CustomerDetailsBean;
 import com.shopping.global.bean.WildCardSearchBean;
 import com.shopping.global.constants.Constants;
+import com.shopping.global.dto.CustomerSearchDTO;
 import com.shopping.global.services.CustomerService;
 import com.shopping.global.services.ResponseDTO;
 
@@ -43,7 +44,7 @@ public class CustomerServiceBO {
 		logger.debug("validateAndSearchCustomerDetails :START");
 		ResponseDTO response=null;
 		try {
-			
+
 				response=customerService.searchCustomerDetails(customerSearchDetails);
 		} catch (Exception e) {
 			response.setStatus(Constants.ERROR);
@@ -53,11 +54,25 @@ public class CustomerServiceBO {
 		logger.debug("validateAndSearchCustomerDetails :END");
 		return response;
 	}
+	public ResponseDTO getCustomerDetails(CustomerSearchDTO customer) {
+		logger.debug("getCustomerDetails :START");
+		ResponseDTO response=null;
+		try {
+
+				response=customerService.getCustomerDetails(customer);
+		} catch (Exception e) {
+			response.setStatus(Constants.ERROR);
+			response.setMessage(e.getMessage());
+			response.setResponseObject(e);
+		}
+		logger.debug("getCustomerDetails :END");
+		return response;
+	}
 	public ResponseDTO validateAndFetchCustomerDues(WildCardSearchBean customerSearchDetails) {
 		logger.debug("validateAndFetchCustomerDues :START");
 		ResponseDTO response=null;
 		try {
-			
+
 				response=customerService.searchCustomerDues(customerSearchDetails);
 		} catch (Exception e) {
 			response.setStatus(Constants.ERROR);
@@ -67,12 +82,12 @@ public class CustomerServiceBO {
 		logger.debug("validateAndFetchCustomerDues :END");
 		return response;
 	}
-	
+
 	public ResponseDTO validateAndFetchCustomerDueDetails(WildCardSearchBean customerSearchDetails) {
 		logger.debug("validateAndFetchCustomerDueDetails :START");
 		ResponseDTO response=null;
 		try {
-			
+
 				response=customerService.searchCustomerDueDetails(customerSearchDetails);
 		} catch (Exception e) {
 			response.setStatus(Constants.ERROR);
@@ -93,6 +108,20 @@ public class CustomerServiceBO {
 			response.setResponseObject(e);
 		}
 		logger.debug("validateAndFetchCustomerPaymentDetails :END");
+		return response;
+	}
+	public ResponseDTO updateCustomer(CustomerSearchDTO customer) {
+		logger.debug("updateCustomer :START");
+		ResponseDTO response=null;
+		try {
+
+				response=customerService.updateCustomer(customer);
+		} catch (Exception e) {
+			response.setStatus(Constants.ERROR);
+			response.setMessage(e.getMessage());
+			response.setResponseObject(e);
+		}
+		logger.debug("updateCustomer :END");
 		return response;
 	}
 }

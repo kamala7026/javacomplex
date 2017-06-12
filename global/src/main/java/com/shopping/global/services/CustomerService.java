@@ -1,5 +1,7 @@
 package com.shopping.global.services;
 
+import java.math.BigInteger;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +12,14 @@ import com.shopping.global.bean.CustomerDetailsBean;
 import com.shopping.global.bean.WildCardSearchBean;
 import com.shopping.global.constants.Constants;
 import com.shopping.global.dao.CustomerDAO;
+import com.shopping.global.dto.CustomerSearchDTO;
 import com.shopping.global.model.TdCustomerDetail;
 import com.shopping.global.util.DateUtil;
 @Service
 public class CustomerService {
 
 	final static Logger logger = LoggerFactory.getLogger(CustomerService.class);
-	
+
 	@Autowired
 	private CustomerDAO customerDAO;
 	@Autowired
@@ -25,10 +28,10 @@ public class CustomerService {
 		logger.debug("validationForMandatoryField :START");
 		ResponseDTO resposne=new ResponseDTO();
 		resposne.setStatus(Constants.SUCCESS);
-		if(StringUtils.isEmpty(customerDetails.getGnumber())){
+		/*if(StringUtils.isEmpty(customerDetails.getGnumber())){
 			resposne.setStatus(Constants.ERROR);
 			resposne.setMessage("Godown Numer can not be blank");
-		}else if(StringUtils.isEmpty(customerDetails.getMobile())){
+		}else */if(StringUtils.isEmpty(customerDetails.getMobile())){
 			resposne.setStatus(Constants.ERROR);
 			resposne.setMessage("Mobile Numer can not be blank");
 		}else if(StringUtils.isEmpty(customerDetails.getName())){
@@ -70,7 +73,7 @@ public class CustomerService {
 		logger.debug("searchCustomerPaymentDetails :END");
 		return response;
 	}
-	
+
 	public ResponseDTO saveCustomerDetails(CustomerDetailsBean customerDetails) throws Exception{
 		logger.debug("saveCustomerDetails :START");
 		ResponseDTO response=null;
@@ -89,8 +92,40 @@ public class CustomerService {
 			response=customerDAO.saveCustomerDetails(customerDetailsForDAO);
 		} catch (Exception e) {
 			throw e;
-		}		
+		}
 		logger.debug("saveCustomerDetails :END");
+		return response;
+	}
+	public ResponseDTO getCustomerDetails(CustomerSearchDTO customer) {
+		logger.debug("getCustomerDetails :START");
+		ResponseDTO response=null;
+
+		response=customerDAO.getCustomerDetails(customer);
+		logger.debug("getCustomerDetails :START");
+		return response;
+	}
+	public ResponseDTO updateCustomer(CustomerSearchDTO customer) throws Exception {
+		logger.debug("updateCustomer :START");
+		ResponseDTO response=null;
+		try {
+			TdCustomerDetail customerDetail=(TdCustomerDetail)customerDAO.getCustomerDetails(customer).getResponseObject();
+			customerDetail.setAddress(customer.getAddress());
+			customerDetail.setCity(customer.getCity());
+			customerDetail.setDob(dateUtil.stringToDate(customer.getDob(),"yyyy-mm-dd"));
+			customerDetail.setEmail(customer.getEmail());
+			customerDetail.setLandline(customer.getSphone());
+			customerDetail.setSecondaryPhone(customer.getSphone());
+			customerDetail.setMobile(customer.getMobile());
+			customerDetail.setName(customer.getName());
+			customerDetail.setState(customer.getState());
+			customerDetail.setGodownNo(customer.getGodownNo());
+			//customerDetail.setCustomerId(new BigInteger(customer.getCustomerId()));
+			
+			response=customerDAO.updateCustomer(customerDetail);
+		} catch (Exception e) {
+			throw e;
+		}
+		logger.debug("updateCustomer :START");
 		return response;
 	}
 

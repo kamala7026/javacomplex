@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.shopping.global.bean.LoginBean;
 import com.shopping.global.bo.SignUpBO;
@@ -37,8 +38,6 @@ public class HomeController {
 
 	final static Logger logger = LoggerFactory.getLogger(HomeController.class);
 
-	@Autowired
-	private SignUpBO SignUpBO;
 
 	@Autowired
 	private EmailUtility emailUtility;
@@ -188,29 +187,8 @@ public class HomeController {
 		}
 		return redirect;
 	}
-
-	@RequestMapping(value=HtmConstants.NEW_REGISTER)
-	public String redirectToNewRegisterPage(Model model) {
-		logger.debug("redirectToNewRegisterPage :START");
-		model.addAttribute("signUp",new SignUpDTO());
-		logger.debug("redirectToNewRegisterPage :END");
-		return "register";
-	}
-
-	@RequestMapping(value=HtmConstants.REGISTER)
-	public String register(Model model,@ModelAttribute("signUp")SignUpDTO signUpData) {
-		logger.debug("register :START");
-		try {
-			SignUpBO.signUp(signUpData);
-			model.addAttribute("user",new LoginBean());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		logger.debug("register :END");
-		return "index";
-	}
+	
+	
 	private String generateRandomString(String email,String userName,String contextPath,String relativePath){
 		String encryptedString=encryptDecrypt.encrypt(StringEscapeUtils.escapeHtml4(email)+"###"+userName);
 		return relativePath+contextPath+HtmConstants.RESET_PASWRD+"?&forgotPassword="+encryptedString;
