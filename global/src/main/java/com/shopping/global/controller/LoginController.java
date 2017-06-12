@@ -136,7 +136,7 @@ public class LoginController {
 		}
 
 		logger.debug("register :END");
-		return "register.htm";
+		return "index";
 	}
 
 	@RequestMapping(value=HtmConstants.NEW_REGISTER)
