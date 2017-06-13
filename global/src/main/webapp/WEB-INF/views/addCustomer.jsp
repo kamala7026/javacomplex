@@ -224,13 +224,13 @@
                                          <div class="form-group ">
                                             <label for="username" class="control-label col-lg-2">State </label>
                                             <div class="col-lg-10">
-                                                <input class="form-control " id="state" name="state" path="state" type="text" onkeypress="return alpha(event)">
+                                                <input class="form-control " id="state" name="state" path="state" type="text">
                                             </div>
                                         </div>
                                         <div class="form-group ">
                                             <label for="username" class="control-label col-lg-2">City </label>
                                             <div class="col-lg-10">
-                                                <input class="form-control " id="city" name="city" path="city" type="text" onkeypress="return alpha(event)">
+                                                <input class="form-control " id="city" name="city" path="city" type="text">
                                             </div>
                                         </div>
                                           <div class="form-group ">

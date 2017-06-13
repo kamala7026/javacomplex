@@ -121,7 +121,7 @@ public class CustomerController {
 		customerSearchDTO.setMobile(tdCustomerDetail.getMobile());
 		customerSearchDTO.setName(tdCustomerDetail.getName());
 		customerSearchDTO.setSphone(tdCustomerDetail.getSecondaryPhone());
-		//customerSearchDTO.setState(state);
+		customerSearchDTO.setState(tdCustomerDetail.getState());
 		return customerSearchDTO;
 	}
 	@RequestMapping(value=HtmConstants.ADD_CUSTOMER,method=RequestMethod.POST)
