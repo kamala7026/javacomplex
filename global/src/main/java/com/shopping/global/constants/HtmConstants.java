@@ -92,5 +92,11 @@ public class HtmConstants {
 
 	public static final String UPDATE_CUSTOMER_PAGE = "update_customer.htm";
 
+	public static final String RETURN_BILL_PAGE = "return_bill.htm";
+
+	public static final String NEW_RETURN_BILL = "new__return_bill_generation.htm";
+
+	public static final String GENERATE_RETURN_BILL_PDF = "/generate_return_bill_pdf.htm";
+
 
 }
